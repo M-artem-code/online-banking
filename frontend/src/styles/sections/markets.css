@@ -1,0 +1,133 @@
+.crypto-hub__title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.section-head__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.section-head__subtitle {
+  color: var(--color-text-muted);
+  font-size: 1.0625rem;
+}
+
+.crypto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-5);
+}
+
+.crypto-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    background var(--transition-base);
+}
+
+.crypto-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 170, 0.3);
+  background: var(--color-bg-card-hover);
+}
+
+.crypto-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.crypto-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.crypto-card__symbol {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.crypto-card__pair {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.crypto-card__price {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  transition: color var(--transition-fast);
+}
+
+.crypto-card__price--flash-up {
+  animation: priceFlashUp 0.5s ease;
+}
+
+.crypto-card__price--flash-down {
+  animation: priceFlashDown 0.5s ease;
+}
+
+.crypto-card__change {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.crypto-card__change--up {
+  color: var(--color-positive);
+}
+
+.crypto-card__change--down {
+  color: var(--color-negative);
+}
+
+.crypto-card__status {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+}
+
+.crypto-card__status--connected {
+  color: var(--color-accent);
+}
+
+@keyframes priceFlashUp {
+  0% {
+    color: var(--color-positive);
+  }
+  100% {
+    color: var(--color-text-primary);
+  }
+}
+
+@keyframes priceFlashDown {
+  0% {
+    color: var(--color-negative);
+  }
+  100% {
+    color: var(--color-text-primary);
+  }
+}

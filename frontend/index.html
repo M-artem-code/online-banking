@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KAIROS — Online Banking</title>
+  </head>
+  <body>
+    <header class="header site-header" data-component="header">
+      <div class="header__inner container">
+        <a href="/" class="header__logo" aria-label="KAIROS home">
+          <span class="header__logo-text">KAIROS</span>
+        </a>
+        <nav class="header__nav" aria-label="Main navigation">
+          <a href="#hero" class="header__link">Home</a>
+          <a href="#crypto" class="header__link">Markets</a>
+        </nav>
+        <div class="header__actions">
+          <div id="user-profile" class="user-profile" hidden></div>
+          <button type="button" class="header__burger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page">
+      <section id="hero" class="hero" data-component="hero" aria-label="Hero">
+        <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+          <source src="/video/HP.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__overlay" aria-hidden="true"></div>
+        <div class="hero__layout container">
+          <div class="hero__copy">
+            <h1 class="hero__title">FROM THE FIELD OF ALL POSSIBILITY</h1>
+            <p class="hero__subtitle">Hero copy and CTAs — Phase 3.</p>
+          </div>
+          <aside class="auth-card" data-component="auth-card" aria-label="Online Banking sign in">
+            <div class="auth-card__shell">
+              <p class="auth-card__label">Online Banking</p>
+              <button type="button" id="google-auth" class="btn btn--google">Sign in with Google</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section id="crypto" class="crypto-hub section" data-component="crypto-hub" aria-label="Live cryptocurrency prices">
+        <div class="container">
+          <h2 class="crypto-hub__title">Live markets</h2>
+          <div id="crypto-grid" class="crypto-grid" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
