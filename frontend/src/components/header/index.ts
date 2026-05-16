@@ -1,2 +1,2 @@
-/** Header component — init wired in main.ts until Phase 3 render migration. */
+/** Header — markup in index.html; menu targets #mobile-menu overlay. */
 export { initMobileMenu } from './menu.ts'

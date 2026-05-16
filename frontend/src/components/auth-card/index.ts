@@ -1,2 +1,2 @@
-/** Auth card component — OAuth trigger #google-auth in index.html (Phase 3). */
+/** Auth card — #google-auth in index.html; logic in features/auth. */
 export {}

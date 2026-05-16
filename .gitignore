@@ -1,13 +1,68 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
+build/
+*.tsbuildinfo
+
+# Vite
+.vite/
+
+# Environment (keep examples)
 .env
-.env.local
-*.pyc
+.env.*
+!.env.example
+
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 .venv/
 venv/
-.Python
+env/
+ENV/
 *.egg-info/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE / editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
 Thumbs.db
-.vite/
+Desktop.ini
+
+# Deploy / local tooling
+.vercel/
+.railway/
+
+# Misc caches
+.cache/
+.turbo/
+*.local

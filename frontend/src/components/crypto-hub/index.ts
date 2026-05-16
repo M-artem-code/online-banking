@@ -1,2 +1,2 @@
-/** Crypto hub — live prices via features/crypto-live (Phase 3 layout). */
+/** Crypto hub — #crypto-list-left/right + #crypto-grid (WS) in index.html. */
 export {}
