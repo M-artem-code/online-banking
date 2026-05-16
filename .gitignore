@@ -66,3 +66,14 @@ Desktop.ini
 .cache/
 .turbo/
 *.local
+
+# Large media & Figma exports (local / task archive — README, frontend/public/assets/ASSETS.md)
+frontend/public/video/*.mp4
+frontend/public/video/frames/
+frontend/public/video/frames-seq/
+frontend/public/figma/process/
+frontend/public/figma/drafts/
+frontend/public/figma/main/
+frontend/public/figma/animation/
+frontend/public/figma/ui-kit/Online Banking.png
+frontend/public/animation/

@@ -5,6 +5,7 @@
 @import "./styles/layout.css";
 @import "./styles/utilities.css";
 @import "./styles/base.css";
+@import "./styles/intro.css";
 
 /* 2. Legacy section styles (minimal skeleton — replaced in Phase 3+) */
 @import "./styles/sections/header.css";
@@ -12,3 +13,6 @@
 @import "./styles/sections/auth-card.css";
 @import "./styles/sections/crypto-hub.css";
 @import "./styles/sections/buttons.css";
+@import "./styles/sections/modal-shared.css";
+@import "./styles/sections/modal-learn-more.css";
+@import "./styles/sections/modal-video.css";

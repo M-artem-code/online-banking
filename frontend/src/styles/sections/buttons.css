@@ -4,15 +4,16 @@
   justify-content: center;
   gap: var(--space-2);
   padding: 0.75rem 1.5rem;
+  font-family: var(--font-display);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 400;
   border-radius: var(--radius-md);
   transition:
-    background var(--transition-fast),
-    color var(--transition-fast),
-    border-color var(--transition-fast),
+    background var(--transition-smooth),
+    color var(--transition-smooth),
+    border-color var(--transition-smooth),
     transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-smooth);
 }
 
 .btn:active {
@@ -20,13 +21,13 @@
 }
 
 .btn--primary {
-  background: var(--color-accent);
-  color: var(--color-bg-primary);
+  background: var(--color-accent-line);
+  color: var(--color-text-primary);
 }
 
 .btn--primary:hover {
-  background: #00e6b8;
-  box-shadow: 0 0 24px rgba(0, 212, 170, 0.35);
+  background: #5ba3eb;
+  box-shadow: var(--glow-accent);
 }
 
 .btn--outline {
@@ -41,20 +42,54 @@
 }
 
 .btn--google {
-  background: var(--color-gold);
+  gap: 12px;
+  min-height: 0;
+  height: var(--auth-card-google-height, 48px);
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   color: var(--color-surface);
-  padding: 0.75rem 1.25rem;
-  border: none;
-  font-family: var(--font-body);
-  font-weight: 600;
+  background: var(--color-gold);
 }
 
-.btn--google:hover {
-  background: var(--color-gold-hover);
+.btn--google:hover,
+.btn--google:focus-visible {
+  border-color: rgba(193, 176, 120, 0.5);
+  color: var(--color-gold);
+  background: var(--color-surface);
+  box-shadow: var(--glow-gold);
+}
+
+.btn--google:hover .btn__google-label {
+  text-decoration: none;
+}
+
+.btn--google:focus-visible {
+  outline: 2px solid var(--color-purple-deep);
+  outline-offset: 2px;
 }
 
 .btn--google[hidden] {
-  display: none;
+  display: none !important;
+}
+
+.btn__google-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.btn__google-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .btn__icon {

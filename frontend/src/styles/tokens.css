@@ -1,20 +1,21 @@
 /**
- * Design tokens — sourced from Figma assets (main/, ui-kit/).
- * Refine exact values in Dev Mode during pixel-perfect phase.
+ * Design tokens — Figma 1920px artboard (pixel values at 120rem breakpoint)
  */
 :root {
   /* Backgrounds */
   --color-bg-primary: #000b26;
-  --color-bg-crypto: #001226;
+  --color-bg-crypto: #031c39;
   --color-bg-menu: #051630;
   --color-surface: #ffffff;
   --color-surface-muted: #f4f4f6;
 
   /* Brand */
   --color-purple-deep: #2e0066;
+  --color-purple-header: #29005c;
   --color-purple-tab: #1a0040;
-  --color-gold: #c5b378;
-  --color-gold-hover: #d4c48a;
+  --color-gold: #c1b078;
+  --color-gold-hover: #d0c090;
+  --color-auth-border: #9747ff;
   --color-accent-line: #4a90e2;
   --color-progress: #f5c518;
 
@@ -31,11 +32,11 @@
   --color-border-on-surface: rgba(46, 0, 102, 0.2);
   --color-overlay-hero: rgba(0, 11, 38, 0.55);
 
-  /* Typography */
-  --font-display: "Michroma", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  /* Typography — Bruno Ace */
+  --font-display: "Bruno Ace", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Bruno Ace", "Segoe UI", system-ui, sans-serif;
 
-  --text-display-xl: clamp(1.75rem, 3.5vw, 3rem);
+  --text-display-xl: clamp(1.75rem, 5vw, 4rem);
   --text-display-lg: clamp(1.25rem, 2.5vw, 2rem);
   --text-body: 1rem;
   --text-body-sm: 0.875rem;
@@ -47,7 +48,7 @@
   --tracking-nav: 0.14em;
   --tracking-label: 0.12em;
 
-  /* Spacing scale (4px base) */
+  /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -64,50 +65,215 @@
   --radius-lg: 16px;
   --radius-card: 20px;
   --radius-pill: 9999px;
+  --radius-full: 9999px;
 
-  /* Layout */
-  --container-max: 1440px;
-  --container-padding: var(--space-5);
-  --header-height: 80px;
+  /* Layout — responsive defaults */
+  --artboard-width: 1920px;
+  --container-max: min(1920px, 100%);
+  --container-padding: 20px;
+
+  --header-height: 64px;
   --header-height-mobile: 64px;
-  --header-padding-x: clamp(1.25rem, 3.5vw, 3rem);
-  --header-nav-gap: 1.25rem;
+  --header-padding-x: var(--container-padding);
+  --header-content-max: 1760px;
+  --header-nav-gap: 20px;
   --header-nav-sep-height: 14px;
-  --header-logo-width: 7.5rem;
-  --header-logo-height: 1.75rem;
-  --header-burger-size: 2.75rem;
+  --header-nav-line: 24px;
+  --header-nav-link-height: 24px;
+  --header-nav-font-size: 13px;
+  --header-nav-total-width: 699px;
+  --header-nav-link-home: 76px;
+  --header-nav-link-about: 117px;
+  --header-nav-link-projects: 95px;
+  --header-nav-link-contact: 168px;
+  --header-logo-width: 120px;
+  --header-logo-height: 28px;
+  --header-burger-size: 44px;
   --color-nav-separator: rgba(255, 255, 255, 0.35);
   --color-header-scrim: transparent;
-  --section-padding-y: var(--space-10);
+  --color-header-scrim-mobile: rgba(0, 11, 38, 0.94);
 
-  /* Hero (minimal) */
-  --hero-cta-height: 3rem;
-  --hero-cta-icon-width: 3rem;
-  --hero-title-size: clamp(1.375rem, 3.2vw, 3.25rem);
-  --hero-body-size: 1rem;
+  /* Hero — Figma HP */
+  --hero-viewport-height: 1000px;
+  --hero-content-max: 1760px;
+  --hero-content-height: 546px;
+  --hero-content-offset-top: 254px;
+  --hero-content-offset-bottom: 200px;
+  --hero-copy-width: 1016px;
+  --hero-title-max: 933px;
+  --hero-title-subtitle-gap: 40px;
+  --hero-subtitle-max: 1016px;
+  --hero-subtitle-min-height: 66px;
+  --hero-subtitle-to-actions: 46.5px;
+  --hero-copy-to-auth-gap: 319px;
+  --hero-title-size: clamp(1.5rem, 4.2vw, 4rem);
+  --hero-subtitle-size: 16px;
+  --hero-cta-width: 207px;
+  --hero-cta-height: 55px;
+  --hero-cta-radius: 4px;
+  --hero-cta-icon-width: 52px;
+  --hero-cta-slice: 26px;
+  --hero-cta-font-size: 14px;
+  --hero-actions-gap: 40px;
 
-  /* Auth card (minimal) */
-  --auth-card-radius: 20px;
-  --auth-card-tab-radius: 12px;
-  --auth-card-header-h: 3.25rem;
-  --auth-card-tab-h: 2.75rem;
-  --auth-card-body-pad: 1.5rem;
-  --auth-card-gap: 1rem;
+  /* Video modal — Figma overlay 1465×764 */
+  --video-modal-width: 1465px;
+  --video-modal-height: 764px;
+  --video-modal-pad-x: clamp(16px, 11.9vw, 228px);
+  --video-modal-pad-y: clamp(16px, 8.2vh, 158px);
+  --video-play-size: 124px;
 
-  /* Crypto hub (minimal) */
-  --crypto-hub-center-size: 20rem;
-  --crypto-hub-row-gap: 1.25rem;
-  --crypto-hub-ring-color: rgba(74, 144, 226, 0.45);
-  --crypto-hub-decor-color: rgba(74, 144, 226, 0.55);
-  --crypto-hub-icon-size: 2rem;
+  /* Modals — shared close + Learn More */
+  --modal-close-size: 48px;
+  --modal-close-gap: 12px;
+  --learn-modal-width: 1464px;
+  --learn-modal-height: 763px;
+  --learn-modal-pad-x: clamp(20px, 11.9vw, 228px);
+  --learn-modal-pad-y: clamp(54px, 8.2vh, 159px);
+  --learn-modal-inner-top: 60px;
+  --learn-modal-inner-left: 60px;
+  --learn-modal-inner-right: 149px;
+  --learn-modal-inner-bottom: 145px;
+  --learn-modal-pad-x-mobile: 20px;
+  --learn-modal-pad-y-mobile: 54px;
+  --learn-modal-inner-top-mobile: 40px;
+  --learn-modal-inner-x-mobile: 40px;
+  --learn-modal-inner-bottom-mobile: 75px;
+  --learn-modal-title-size: 28px;
+  --learn-modal-title-line: 1.35;
+  --learn-modal-body-size: 16px;
+  --learn-modal-body-line: 1.5;
+
+  /* Auth card — 425×455 */
+  --auth-card-width: 425px;
+  --auth-card-min-height: 455px;
+  --auth-card-radius: 8px;
+  --auth-card-tab-radius: 10px;
+  --auth-card-header-h: 84px;
+  --auth-card-tab-h: 64px;
+  --auth-card-body-pad: 29px;
+  --auth-card-body-pad-x: 39px;
+  --auth-card-field-height: 48px;
+  --auth-card-google-height: 48px;
+
+  /* Crypto hub — Figma Online Banking */
+  --crypto-section-height: 884px;
+  --crypto-section-pad-top: 60px;
+  --crypto-section-pad-bottom: 60px;
+  --crypto-section-pad-left: 141px;
+  --crypto-section-pad-right: 200px;
+  --crypto-section-frame-width: 1760px;
+  --crypto-layout-width: 1613px;
+  --crypto-layout-height: 764px;
+  --crypto-layout-offset-left: max(
+    var(--crypto-section-pad-left),
+    calc(50% - var(--crypto-layout-width) / 2)
+  );
+  --crypto-layout-offset-right: max(
+    var(--crypto-section-pad-right),
+    calc(50% - var(--crypto-layout-width) / 2)
+  );
+  --crypto-hub-col-width: 424.5px;
+  --crypto-hub-list-height: 445px;
+  --crypto-hub-col-pad-block: 159.5px;
+  --crypto-hub-center-size: 764px;
+  /* Кольца Figma: 764 / 672 / 594 (внешний → внутренний) */
+  --crypto-hub-rings-size: 764px;
+  --crypto-hub-ring-gap: 39px;
+  --crypto-hub-ring-size-lg: 100%;
+  --crypto-hub-ring-size-md: 87.958115%;
+  --crypto-hub-ring-size-sm: 77.748691%;
+  --crypto-hub-col-overlap: 24.5px;
+  --crypto-hub-row-height: 89px;
+  --crypto-hub-icon-size: 36px;
+  --crypto-hub-ui-width: 350px;
+  --crypto-hub-ui-height: 137px;
+  --crypto-hub-ui-gap: 50px;
+  --crypto-hub-title-height: 39px;
+  --crypto-hub-title-size: 25px;
+  --crypto-hub-add-hover-ms: 950ms;
+  --crypto-hub-add-width: 346px;
+  --crypto-hub-add-height: 48px;
+
+  --underline-offset: 3px;
 
   /* Effects */
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.35);
-  --transition-fast: 150ms ease;
-  --transition-base: 280ms ease;
+  --shadow-card-lifted: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-auth: 0 20px 56px rgba(0, 0, 0, 0.45), 0 0 40px rgba(46, 0, 102, 0.18);
+  --glow-accent: 0 0 12px rgba(74, 144, 226, 0.55);
+  --glow-accent-soft: 0 0 24px rgba(74, 144, 226, 0.22);
+  --glow-gold: 0 0 20px rgba(197, 179, 120, 0.35);
+  --glow-text: 0 0 28px rgba(255, 255, 255, 0.12);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 220ms var(--ease-smooth);
+  --transition-base: 400ms var(--ease-smooth);
+  --transition-smooth: 520ms var(--ease-smooth);
 
-  /* Breakpoints (for reference in JS — use MEDIA in config/breakpoints.ts) */
   --bp-tablet: 768px;
   --bp-desktop: 1200px;
-  --bp-wide: 1440px;
+  --bp-figma: 1920px;
+
+  --z-overlays: 200;
+  --z-header-menu-open: 220;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --crypto-mobile-pad-x: clamp(1.25rem, 5vw, 2.5rem);
+    --crypto-mobile-hub-size: min(82vw, 21.5rem);
+    --crypto-mobile-ui-gap: 30px;
+    --crypto-mobile-layout-gap-y: clamp(1.75rem, 5vw, 2.75rem);
+    --crypto-mobile-list-row-gap: 0.75rem;
+    --crypto-mobile-icon-size: 1.5rem;
+    --crypto-mobile-price-min: 4.25rem;
+    --crypto-mobile-section-pad-bottom: clamp(2.5rem, 10vw, 4.5rem);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 24px;
+    --header-height: 84px;
+    --hero-layout-pad-top: 220px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --container-padding: 32px;
+    --header-height: 84px;
+    --hero-layout-pad-top: 220px;
+
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-padding: 80px;
+    --header-height: 104px;
+    --header-content-max: 1760px;
+    --header-nav-gap: 40px;
+    --header-nav-line: 24px;
+    --header-nav-link-height: 24px;
+    --header-nav-font-size: 13px;
+    --header-nav-sep-height: 14px;
+    --text-nav: 13px;
+    --header-logo-width: 136px;
+    --header-logo-height: 32px;
+    --hero-title-size: 64px;
+    --hero-subtitle-size: 16px;
+    --hero-layout-pad-top: 220px;
+    --crypto-hub-center-size: 764px;
+    --crypto-hub-rings-size: 764px;
+    --crypto-layout-offset-left: max(
+      var(--crypto-section-pad-left),
+      calc(50% - var(--crypto-layout-width) / 2)
+    );
+    --crypto-layout-offset-right: max(
+      var(--crypto-section-pad-right),
+      calc(50% - var(--crypto-layout-width) / 2)
+    );
+  }
 }

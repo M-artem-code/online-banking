@@ -13,6 +13,50 @@
   padding-inline: var(--header-padding-x);
 }
 
+@media (min-width: 1920px) {
+  .site-nav {
+    flex-shrink: 0;
+  }
+
+  .site-nav__list {
+    gap: 0;
+    width: var(--header-nav-total-width);
+    justify-content: flex-end;
+  }
+
+  .site-nav__separator {
+    height: var(--header-nav-sep-height);
+    margin-inline: var(--header-nav-gap);
+  }
+
+  .site-nav__link,
+  .header__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: var(--header-nav-link-height);
+    line-height: var(--header-nav-line);
+    font-size: var(--header-nav-font-size);
+  }
+
+  .site-nav__item:nth-child(1) .site-nav__link {
+    width: var(--header-nav-link-home);
+  }
+
+  .site-nav__item:nth-child(3) .site-nav__link {
+    width: var(--header-nav-link-about);
+  }
+
+  .site-nav__item:nth-child(5) .site-nav__link {
+    width: var(--header-nav-link-projects);
+  }
+
+  .site-nav__item:nth-child(7) .site-nav__link {
+    width: var(--header-nav-link-contact);
+  }
+}
+
 /* ——— Logo (Kairos wordmark asset) ——— */
 .header__logo {
   display: inline-flex;
@@ -25,6 +69,7 @@
   width: var(--header-logo-width);
   height: var(--header-logo-height);
   background: url("/figma/ui-kit/Kairos.png") no-repeat left center / contain;
+  filter: drop-shadow(var(--glow-text));
   text-indent: -9999px;
   overflow: hidden;
   white-space: nowrap;
@@ -32,7 +77,22 @@
 
 /* ——— Desktop navigation ——— */
 .site-nav {
-  justify-self: center;
+  margin-left: auto;
+}
+
+.header__actions {
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .header__actions:not(:has(#user-profile:not([hidden]))) {
+    display: none;
+  }
+
+  .header__actions:has(#user-profile:not([hidden])) {
+    display: flex;
+    margin-left: var(--space-4);
+  }
 }
 
 .site-nav__list {
@@ -55,23 +115,46 @@
 
 .site-nav__link,
 .header__link {
+  position: relative;
   font-family: var(--font-display);
-  font-size: var(--text-nav);
+  font-size: var(--header-nav-font-size, var(--text-nav));
   font-weight: 400;
-  line-height: 1;
+  line-height: var(--header-nav-line);
   letter-spacing: var(--tracking-nav);
   text-transform: uppercase;
   color: var(--color-text-primary);
   white-space: nowrap;
+  text-shadow: var(--glow-text);
   transition: opacity var(--transition-fast);
+}
+
+.site-nav__link::after,
+.header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
 }
 
 .site-nav__link:hover,
 .site-nav__link:focus-visible,
 .header__link:hover,
 .header__link:focus-visible {
-  opacity: 0.75;
+  opacity: 1;
   color: var(--color-text-primary);
+}
+
+.site-nav__link:hover::after,
+.site-nav__link:focus-visible::after,
+.header__link:hover::after,
+.header__link:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .site-nav__link:focus-visible,
@@ -86,19 +169,25 @@
 }
 
 .header__burger {
+  position: relative;
   display: none;
-  align-items: center;
-  justify-content: center;
+  flex-shrink: 0;
   width: var(--header-burger-size);
   height: var(--header-burger-size);
   padding: 0;
+  border: none;
   border-radius: var(--radius-full);
   background: var(--color-purple-deep);
-  transition: background var(--transition-fast);
+  box-shadow: 0 4px 16px rgba(46, 0, 102, 0.45);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .header__burger:hover {
   background: #3a0080;
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.25);
 }
 
 .header__burger:focus-visible {
@@ -107,30 +196,44 @@
 }
 
 .header__burger-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   display: block;
   width: 1.125rem;
   height: 2px;
-  background: var(--color-text-primary);
+  margin: -1px 0 0 -0.5625rem;
   border-radius: 1px;
+  background: var(--color-text-primary);
+  transform-origin: center center;
   transition:
     transform var(--transition-base),
     opacity var(--transition-fast);
 }
 
-.header__burger-line + .header__burger-line {
-  margin-top: 4px;
+.header__burger-line:nth-child(1) {
+  transform: translateY(-7px);
+}
+
+.header__burger-line:nth-child(2) {
+  transform: translateY(0);
+}
+
+.header__burger-line:nth-child(3) {
+  transform: translateY(7px);
 }
 
 .header--menu-open .header__burger-line:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(0) rotate(45deg);
 }
 
 .header--menu-open .header__burger-line:nth-child(2) {
   opacity: 0;
+  transform: translateY(0) scaleX(0);
 }
 
 .header--menu-open .header__burger-line:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+  transform: translateY(0) rotate(-45deg);
 }
 
 /* ——— User profile (post-OAuth) ——— */
@@ -159,61 +262,45 @@
   color: var(--color-text-primary);
 }
 
-/* ——— Mobile fullscreen menu ——— */
-.mobile-menu {
+/* ——— Mobile menu (fullscreen on narrow, drawer on tablet) ——— */
+.mobile-menu__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: rgba(0, 11, 38, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+
+.mobile-menu:not([hidden]) .mobile-menu__backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu__panel {
+  z-index: 1;
   padding: var(--space-6) var(--header-padding-x);
   background: var(--color-bg-menu);
-}
-
-.mobile-menu__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: var(--header-height-mobile);
-  margin-bottom: var(--space-8);
-}
-
-.mobile-menu__logo {
-  display: block;
-  width: var(--header-logo-width);
-  height: var(--header-logo-height);
-  background: url("/figma/ui-kit/Kairos.png") no-repeat left center / contain;
-  text-indent: -9999px;
-  overflow: hidden;
-}
-
-.mobile-menu__close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--header-burger-size);
-  height: var(--header-burger-size);
-  padding: 0;
-  border-radius: var(--radius-full);
-  background: var(--color-purple-deep);
-  color: var(--color-text-primary);
-  font-size: 1.5rem;
-  line-height: 1;
-  transition: background var(--transition-fast);
-}
-
-.mobile-menu__close:hover {
-  background: #3a0080;
-}
-
-.mobile-menu__close:focus-visible {
-  outline: 2px solid var(--color-text-primary);
-  outline-offset: 3px;
 }
 
 .mobile-menu__list {
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  padding-top: var(--space-6);
+  padding-top: var(--header-height-mobile);
 }
 
 .mobile-menu__link {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 400;
@@ -224,10 +311,28 @@
   transition: opacity var(--transition-fast);
 }
 
+.mobile-menu__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
 .mobile-menu__link:hover,
 .mobile-menu__link:focus-visible {
-  opacity: 0.75;
+  opacity: 1;
   color: var(--color-text-primary);
+}
+
+.mobile-menu__link:hover::after,
+.mobile-menu__link:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .mobile-menu__link:focus-visible {
@@ -239,11 +344,51 @@
   display: none !important;
 }
 
+/* Drawer mode — tablet portrait (>480px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .mobile-menu__panel {
+    width: min(60%, 360px);
+    box-shadow: -16px 0 48px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Fullscreen mode — narrow phones */
+@media (max-width: 480px) {
+  .mobile-menu__panel {
+    width: 100%;
+  }
+
+  .mobile-menu__backdrop {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
 /* ——— Responsive ——— */
 @media (max-width: 767px) {
   .site-header,
   .header {
     height: var(--header-height-mobile);
+    background: var(--color-header-scrim-mobile);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .header__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Above .overlays (200) so burger/X stays visible on fullscreen menu */
+  .header--menu-open.site-header,
+  .header--menu-open.header {
+    z-index: var(--z-header-menu-open);
+  }
+
+  .header--menu-open .header__burger {
+    position: relative;
+    z-index: 1;
   }
 
   .header__inner {
@@ -256,8 +401,7 @@
   }
 
   .header__burger {
-    display: flex;
-    flex-direction: column;
+    display: block;
   }
 
   .user-profile__name {
@@ -277,12 +421,4 @@
     height: 2rem;
   }
 
-  .mobile-menu__logo {
-    width: 8.5rem;
-    height: 2rem;
-  }
-
-  .site-nav__separator {
-    margin-inline: 1.375rem;
-  }
 }

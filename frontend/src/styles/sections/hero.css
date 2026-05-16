@@ -1,12 +1,11 @@
-/* Hero — Phase 4 pixel styling (HP.png / M. HP.png / T. HP.png) */
+/* Hero — Figma HP (Bruno Ace, 1760×546, CTA 207×55) */
 
-/* ——— 1. Overlay + layout ——— */
 .hero.section {
   padding-block: 0;
 }
 
 .hero {
-  min-height: 100svh;
+  min-height: max(100svh, var(--hero-viewport-height, 62.5rem));
   background-color: var(--color-bg-primary);
 }
 
@@ -17,83 +16,107 @@
 .hero__overlay {
   background: linear-gradient(
     180deg,
-    rgba(0, 11, 38, 0.35) 0%,
+    rgba(0, 11, 38, 0.28) 0%,
+    rgba(0, 11, 38, 0.52) 45%,
     var(--color-bg-crypto) 100%
   );
   pointer-events: none;
 }
 
 .hero__layout {
-  min-height: 100svh;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
   padding-top: calc(var(--header-height) + var(--space-6));
   padding-bottom: var(--space-10);
-  gap: var(--space-8);
-  align-content: center;
-  align-items: center;
+  gap: var(--hero-copy-to-auth-gap, 2rem);
+  align-content: start;
+  align-items: start;
 }
 
 .hero__copy {
-  gap: var(--space-5);
-  max-width: 36rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: var(--hero-copy-width);
 }
 
 .hero__actions {
   display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: var(--space-3);
-  margin-top: var(--space-2);
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--hero-actions-gap);
+  width: 100%;
+  max-width: var(--hero-copy-width);
+  margin-top: var(--hero-subtitle-to-actions, 1rem);
 }
 
 .hero .auth-card {
-  width: 100%;
-  max-width: 22.5rem;
-  justify-self: center;
-  align-self: center;
+  width: var(--auth-card-width);
+  max-width: var(--auth-card-width);
+  min-height: var(--auth-card-min-height);
+  justify-self: end;
+  align-self: start;
 }
 
-/* ——— 2. Typography ——— */
+/* Typography — Bruno Ace */
 .hero__title {
-  margin: 0;
+  margin: 0 0 var(--hero-title-subtitle-gap);
+  width: 100%;
+  max-width: var(--hero-title-max);
   font-family: var(--font-display);
   font-size: var(--hero-title-size);
   font-weight: 400;
   line-height: 1.12;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-text-primary);
+  text-shadow: var(--glow-text);
+}
+
+.hero__title-line {
+  display: block;
+  will-change: opacity, transform, filter;
 }
 
 .hero__subtitle {
   margin: 0;
-  max-width: 34rem;
+  width: 100%;
+  max-width: var(--hero-subtitle-max);
+  min-height: var(--hero-subtitle-min-height, auto);
   font-family: var(--font-body);
-  font-size: var(--hero-body-size);
+  font-size: var(--hero-subtitle-size, 1rem);
   font-weight: 400;
-  line-height: var(--leading-body);
-  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* ——— 3. CTA split buttons (HP.png) ——— */
+.hero__subtitle-line {
+  display: block;
+  will-change: opacity, transform, filter;
+}
+
+/* CTA — 207×55, diagonal split, radius 4px */
 .btn-split {
+  position: relative;
   display: inline-flex;
   align-items: stretch;
-  min-height: var(--hero-cta-height);
+  width: var(--hero-cta-width);
+  height: var(--hero-cta-height);
   padding: 0;
   border: none;
+  border-radius: var(--hero-cta-radius);
+  overflow: hidden;
   cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--hero-cta-font-size);
+  font-weight: 400;
   line-height: 1;
-  text-align: left;
-  transition:
-    filter var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.btn-split:hover {
-  filter: brightness(1.05);
+  letter-spacing: 0.02em;
+  text-align: center;
+  isolation: isolate;
+  transition: transform var(--transition-fast);
 }
 
 .btn-split:active {
@@ -105,29 +128,112 @@
   outline-offset: 3px;
 }
 
+.btn-split__label,
+.btn-split__icon {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
 .btn-split__label {
-  display: inline-flex;
+  display: flex;
+  flex: 1;
   align-items: center;
-  padding: 0 1.25rem;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 0.75rem 0 1.125rem;
   white-space: nowrap;
+  transition: color var(--transition-smooth);
 }
 
 .btn-split__icon {
-  position: relative;
   flex-shrink: 0;
   width: var(--hero-cta-icon-width);
-  clip-path: polygon(0.75rem 0, 100% 0, 100% 100%, 0 100%);
-  margin-left: -1px;
+  margin-left: calc(var(--hero-cta-slice) * -1);
 }
 
-/* Learn More — white body + purple arrow block */
-.btn-split--learn .btn-split__label {
-  color: var(--color-purple-deep);
+/* Диагональная заливка: от правого блока к левому по углу среза */
+.btn-split--learn::before,
+.btn-split--video::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--hero-cta-radius);
+  clip-path: polygon(
+    calc(100% - var(--hero-cta-icon-width) + var(--hero-cta-slice)) 0,
+    100% 0,
+    100% 100%,
+    calc(100% - var(--hero-cta-icon-width)) 100%
+  );
+  will-change: clip-path;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.btn-split--learn::before {
+  background: var(--color-purple-deep);
+  transition: clip-path 0.65s var(--ease-smooth);
+}
+
+.btn-split--video::before {
   background: var(--color-surface);
+  transition: clip-path 0.65s var(--ease-smooth);
+}
+
+.btn-split--learn:hover::before,
+.btn-split--learn:focus-visible::before,
+.btn-split--learn[aria-expanded="true"]::before,
+.btn-split--video:hover::before,
+.btn-split--video:focus-visible::before,
+.btn-split--video[aria-expanded="true"]::before {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Learn More — белая маска уходит по диагонали, фиолет растёт синхронно */
+.btn-split--learn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: calc(100% - var(--hero-cta-icon-width) + var(--hero-cta-slice));
+  background: var(--color-surface);
+  border-radius: var(--hero-cta-radius) 0 0 var(--hero-cta-radius);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--hero-cta-slice)) 100%, 0 100%);
+  transition: clip-path 0.65s var(--ease-smooth);
+  pointer-events: none;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.btn-split--learn:hover::after,
+.btn-split--learn:focus-visible::after,
+.btn-split--learn[aria-expanded="true"]::after {
+  /* уходит влево — фиолет заполняет справа, как Play Video */
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+
+.btn-split--learn .btn-split__label {
+  z-index: 3;
+  color: var(--color-purple-deep);
+  transition: color var(--transition-smooth) 0.1s;
+}
+
+.btn-split--learn:not(:hover):not(:focus-visible):not([aria-expanded="true"])
+  .btn-split__label {
+  transition: color var(--transition-smooth);
+}
+
+.btn-split--learn:hover .btn-split__label,
+.btn-split--learn:focus-visible .btn-split__label,
+.btn-split--learn[aria-expanded="true"] .btn-split__label {
+  color: var(--color-text-primary);
 }
 
 .btn-split--learn .btn-split__icon {
-  background: var(--color-purple-deep);
+  z-index: 3;
 }
 
 .btn-split--learn .btn-split__icon::after {
@@ -135,86 +241,148 @@
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-top: 2px solid var(--color-surface);
   border-right: 2px solid var(--color-surface);
-  transform: translateX(-15%) rotate(45deg);
+  transform: translateX(-10%) rotate(45deg);
 }
 
-/* Play Video — ghost body + white play block */
+/* Play Video — прозрачная левая часть; hover: белая заливка по диагонали */
+.btn-split--video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: var(--hero-cta-radius);
+  pointer-events: none;
+}
+
 .btn-split--video .btn-split__label {
   color: var(--color-text-primary);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-right: none;
 }
 
-.btn-split--video .btn-split__icon {
-  background: var(--color-surface);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-left: none;
+.btn-split--video:hover .btn-split__label,
+.btn-split--video:focus-visible .btn-split__label,
+.btn-split--video[aria-expanded="true"] .btn-split__label {
+  color: var(--color-purple-deep);
 }
 
 .btn-split--video .btn-split__icon::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 0;
   height: 0;
   margin: auto;
   border-style: solid;
-  border-width: 0.4rem 0 0.4rem 0.65rem;
+  border-width: 0.35rem 0 0.35rem 0.6rem;
   border-color: transparent transparent transparent var(--color-purple-deep);
-  transform: translateX(12%);
+  transform: translateX(15%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-split--learn::before,
+  .btn-split--learn::after,
+  .btn-split--video::before {
+    transition-duration: 0.01ms;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .btn-split--learn:hover::after,
+  .btn-split--learn:focus-visible::after,
+  .btn-split--learn[aria-expanded="true"]::after {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
 }
 
 /* ——— Responsive ——— */
+@media (max-width: 1199px) {
+  .hero .auth-card {
+    position: static;
+    width: 100%;
+    max-width: var(--auth-card-width);
+    height: auto;
+    min-height: var(--auth-card-min-height);
+    margin-inline: auto;
+  }
+}
+
 @media (max-width: 767px) {
+  .hero {
+    min-height: 100svh;
+  }
+
   .hero__layout {
-    padding-top: calc(var(--header-height-mobile) + var(--space-5));
-    padding-bottom: var(--space-8);
-    gap: var(--space-6);
+    padding-top: calc(
+      var(--header-height-mobile) + env(safe-area-inset-top, 0px) + 33px
+    );
+    padding-bottom: 48px;
+    gap: 36px;
     align-content: start;
+    grid-template-columns: 1fr;
   }
 
   .hero__copy {
     max-width: none;
+    gap: 0;
   }
 
   .hero__title {
-    font-size: clamp(1.25rem, 6.5vw, 1.625rem);
-    letter-spacing: 0.04em;
+    margin: 0 0 24px;
+    max-width: none;
+    font-size: clamp(28px, 9vw, 44px);
+    line-height: 1.08;
+    letter-spacing: 0.03em;
   }
 
   .hero__subtitle {
-    font-size: 0.9375rem;
+    min-height: 0;
+    max-width: none;
+    font-size: clamp(13px, 3.6vw, 15px);
+    line-height: 1.55;
   }
 
   .hero__actions {
     flex-direction: row;
-    gap: var(--space-2);
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(12px, 4vw, 20px);
+    margin-top: 28px;
+    width: 100%;
+    max-width: none;
   }
 
   .btn-split {
-    flex: 1 1 calc(50% - var(--space-1));
+    flex: 1 1 0;
     min-width: 0;
-  }
-
-  .btn-split__label {
-    flex: 1;
-    padding: 0 0.75rem;
-    font-size: 0.8125rem;
-  }
-
-  .btn-split__icon {
-    width: 2.5rem;
-    clip-path: polygon(0.625rem 0, 100% 0, 100% 100%, 0 100%);
+    width: auto;
+    max-width: var(--hero-cta-width);
+    height: 60px;
   }
 
   .hero .auth-card {
     max-width: none;
     width: 100%;
+    min-height: 0;
+    margin-inline: 0;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .btn-split {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
   }
 }
 
@@ -225,26 +393,91 @@
     gap: var(--space-10);
   }
 
+  .btn-split {
+    width: var(--hero-cta-width);
+  }
+
   .hero .auth-card {
-    max-width: 25rem;
+    max-width: var(--auth-card-width);
     justify-self: center;
   }
 }
 
 @media (min-width: 1200px) {
   .hero__layout {
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
-    column-gap: var(--space-10);
-    padding-top: calc(var(--header-height) + var(--space-10));
-    padding-bottom: var(--space-12);
-  }
-
-  .hero__copy {
-    max-width: 38rem;
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: var(--hero-content-height);
+    padding-top: max(
+      var(--space-8),
+      calc(var(--hero-layout-pad-top, 150px) - var(--header-height))
+    );
+    align-items: start;
   }
 
   .hero .auth-card {
-    justify-self: end;
-    max-width: 22.5rem;
+    position: absolute;
+    top: max(var(--space-8), calc(var(--hero-layout-pad-top, 150px) - var(--header-height)));
+    right: var(--container-padding);
+    left: auto;
+    width: var(--auth-card-width);
+    max-width: var(--auth-card-width);
+    height: var(--auth-card-min-height);
+    min-height: var(--auth-card-min-height);
+  }
+}
+
+/* Figma 1920: карточка left 673px, 425×455 */
+@media (min-width: 1920px) {
+  .hero {
+    height: var(--hero-viewport-height);
+    min-height: var(--hero-viewport-height);
+    max-height: var(--hero-viewport-height);
+    overflow: hidden;
+  }
+
+  .hero__layout {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--artboard-width);
+    height: 100%;
+    min-height: 0;
+    padding-top: var(--hero-layout-pad-top, 150px);
+    padding-bottom: var(--hero-content-offset-bottom);
+    overflow: visible;
+  }
+
+  .hero__copy {
+    position: relative;
+    z-index: 1;
+    width: var(--hero-copy-width);
+    max-width: var(--hero-copy-width);
+  }
+
+  .hero .auth-card {
+    position: absolute;
+    top: var(--hero-layout-pad-top, 150px);
+    right: var(--container-padding);
+    left: auto;
+    z-index: 2;
+    width: var(--auth-card-width);
+    max-width: var(--auth-card-width);
+    height: var(--auth-card-min-height);
+    margin: 0;
+  }
+
+  .hero__title {
+    font-size: var(--hero-title-size);
+  }
+
+  .hero__subtitle {
+    font-size: var(--hero-subtitle-size);
+  }
+
+  .hero__actions {
+    margin-top: var(--hero-subtitle-to-actions);
   }
 }

@@ -1,5 +1,9 @@
 import './main.css'
+import { initIntroSequence, onIntroComplete } from './core/introSequence.ts'
+import { initAuthTabs } from './components/auth-card/authTabs.ts'
+import { initAddCryptoUi, initCryptoHubScrollAnimation } from './components/crypto-hub/index.ts'
 import { initMobileMenu } from './components/header/index.ts'
+import { initLearnMoreModal, initVideoModal } from './components/hero/index.ts'
 import {
   parseAuthFromUrl,
   redirectToGoogleAuth,
@@ -14,7 +18,9 @@ function initAuth(): void {
     renderUserProfile(user)
   }
 
-  document.getElementById('google-auth')?.addEventListener('click', () => redirectToGoogleAuth())
+  document.querySelectorAll<HTMLElement>('#google-auth, [data-google-auth]').forEach((btn) => {
+    btn.addEventListener('click', () => redirectToGoogleAuth())
+  })
 }
 
 function initHeroVideo(): void {
@@ -24,14 +30,15 @@ function initHeroVideo(): void {
   video.muted = true
   video.playsInline = true
 
-  const play = () => {
-    video.play().catch(() => {
-      /* autoplay blocked until user interaction */
-    })
-  }
-
-  play()
-  document.addEventListener('click', play, { once: true })
+  document.addEventListener(
+    'click',
+    () => {
+      video.play().catch(() => {
+        /* autoplay blocked */
+      })
+    },
+    { once: true },
+  )
 }
 
 function initCrypto(): void {
@@ -47,9 +54,18 @@ function initCrypto(): void {
 }
 
 function init(): void {
+  onIntroComplete(() => {
+    initCrypto()
+    initAddCryptoUi()
+    initCryptoHubScrollAnimation()
+  })
+
+  initIntroSequence()
   initAuth()
+  initAuthTabs()
   initHeroVideo()
-  initCrypto()
+  initLearnMoreModal()
+  initVideoModal()
   initMobileMenu()
 }
 

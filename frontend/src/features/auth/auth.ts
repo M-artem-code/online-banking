@@ -1,7 +1,5 @@
 import { getApiUrl } from '../../config/env.ts'
 
-const STORAGE_KEY = 'online_banking_user'
-
 export interface AuthUser {
   name: string
   email: string
@@ -12,6 +10,7 @@ export function redirectToGoogleAuth(): void {
   window.location.href = `${getApiUrl()}/auth/google`
 }
 
+/** Читает результат OAuth из URL один раз (без sessionStorage). */
 export function parseAuthFromUrl(): AuthUser | null {
   const params = new URLSearchParams(window.location.search)
   const auth = params.get('auth')
@@ -24,7 +23,7 @@ export function parseAuthFromUrl(): AuthUser | null {
   }
 
   if (auth !== 'ok') {
-    return loadStoredUser()
+    return null
   }
 
   const user: AuthUser = {
@@ -33,24 +32,13 @@ export function parseAuthFromUrl(): AuthUser | null {
     picture: params.get('picture') ?? '',
   }
 
-  if (!user.email) {
-    cleanAuthParams()
-    return null
-  }
-
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
   cleanAuthParams()
-  return user
-}
 
-function loadStoredUser(): AuthUser | null {
-  try {
-    const raw = sessionStorage.getItem(STORAGE_KEY)
-    if (!raw) return null
-    return JSON.parse(raw) as AuthUser
-  } catch {
+  if (!user.email) {
     return null
   }
+
+  return user
 }
 
 function cleanAuthParams(): void {
@@ -65,7 +53,7 @@ function cleanAuthParams(): void {
 
 export function renderUserProfile(user: AuthUser): void {
   const profileEl = document.getElementById('user-profile')
-  const authBtn = document.getElementById('google-auth')
+  const googleButtons = document.querySelectorAll<HTMLElement>('#google-auth, [data-google-auth]')
 
   if (!profileEl) return
 
@@ -75,7 +63,9 @@ export function renderUserProfile(user: AuthUser): void {
     <span class="user-profile__name">${escapeHtml(user.name || user.email)}</span>
   `
 
-  authBtn?.setAttribute('hidden', '')
+  googleButtons.forEach((btn) => {
+    btn.setAttribute('hidden', '')
+  })
 }
 
 function escapeHtml(text: string): string {

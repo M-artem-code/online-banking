@@ -1,2 +1,2 @@
-/** Hero — #hero section in index.html; video init in main.ts. */
-export {}
+export { initLearnMoreModal } from './learnMoreModal.ts'
+export { initVideoModal } from './videoModal.ts'

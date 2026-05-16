@@ -1,18 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="page--intro is-intro-pending">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KAIROS — Online Banking</title>
+    <style id="intro-critical">
+      html {
+        overflow-y: scroll;
+      }
+
+      html.page--intro body {
+        background: #001b33;
+        overflow: hidden;
+        height: 100%;
+        max-height: 100vh;
+      }
+
+      .intro-curtain {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        background: #001b33;
+        clip-path: inset(0 0 0 0);
+        pointer-events: all;
+      }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Michroma&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="is-intro-pending">
+    <div id="intro-curtain" class="intro-curtain" aria-hidden="true"></div>
+
     <header class="site-header header" data-component="header">
       <div class="header__inner container">
         <a href="/" class="header__logo" aria-label="KAIROS home">
@@ -22,19 +45,23 @@
         <nav class="site-nav header__nav" aria-label="Main navigation">
           <ul class="site-nav__list">
             <li class="site-nav__item">
-              <a href="#hero" class="site-nav__link header__link">Home</a>
+              <a href="#hero" class="site-nav__link header__link">HOME</a>
             </li>
             <li class="site-nav__separator" aria-hidden="true"></li>
             <li class="site-nav__item">
-              <a href="#about" class="site-nav__link header__link">About Us</a>
+              <a href="#about" class="site-nav__link header__link">ABOUT US</a>
             </li>
             <li class="site-nav__separator" aria-hidden="true"></li>
             <li class="site-nav__item">
-              <a href="#projects" class="site-nav__link header__link">Projects</a>
+              <a href="#projects" class="site-nav__link header__link"
+                >PROJECTS</a
+              >
             </li>
             <li class="site-nav__separator" aria-hidden="true"></li>
             <li class="site-nav__item">
-              <a href="#contact" class="site-nav__link header__link">Contact Us</a>
+              <a href="#contact" class="site-nav__link header__link"
+                >CONTACT US</a
+              >
             </li>
           </ul>
         </nav>
@@ -58,8 +85,20 @@
     </header>
 
     <main class="page">
-      <section id="hero" class="hero section" data-component="hero" aria-label="Hero">
-        <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+      <section
+        id="hero"
+        class="hero section"
+        data-component="hero"
+        aria-label="Hero"
+      >
+        <video
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          aria-hidden="true"
+        >
           <source src="/video/HP.mp4" type="video/mp4" />
         </video>
         <div class="hero__overlay" aria-hidden="true"></div>
@@ -67,12 +106,22 @@
         <div class="hero__layout container">
           <div class="hero__copy">
             <h1 class="hero__title text-display text-display--xl">
-              FROM THE FIELD OF ALL POSSIBILITY
+              <span class="hero__title-line">FROM THE</span>
+              <span class="hero__title-line">FIELD OF ALL</span>
+              <span class="hero__title-line">POSSIBILITY</span>
             </h1>
             <p class="hero__subtitle text-body-muted">
-              This is an emergent space where ideas are not created, but carefully discovered. We
-              navigate the vast potential to bring forth only the most resonant patterns and coherent
-              forms. Here, the future is curated from the infinite.
+              <span class="hero__subtitle-line"
+                >This is an emergent space where ideas are not created, but
+                carefully discovered. We</span
+              >
+              <span class="hero__subtitle-line"
+                >navigate the vast potential to bring forth only the most
+                resonant patterns and coherent</span
+              >
+              <span class="hero__subtitle-line"
+                >forms. Here, the future is curated from the infinite.</span
+              >
             </p>
             <div class="hero__actions">
               <button
@@ -81,6 +130,7 @@
                 id="btn-learn-more"
                 aria-haspopup="dialog"
                 aria-controls="modal-learn-more"
+                aria-expanded="false"
               >
                 <span class="btn-split__label">Learn More</span>
                 <span class="btn-split__icon" aria-hidden="true"></span>
@@ -91,27 +141,40 @@
                 id="btn-play-video"
                 aria-haspopup="dialog"
                 aria-controls="modal-video"
+                aria-expanded="false"
               >
                 <span class="btn-split__label">Play Video</span>
-                <span class="btn-split__icon btn-split__icon--play" aria-hidden="true"></span>
+                <span
+                  class="btn-split__icon btn-split__icon--play"
+                  aria-hidden="true"
+                ></span>
               </button>
             </div>
           </div>
 
-          <aside class="auth-card" data-component="auth-card" aria-label="Online Banking">
+          <aside
+            class="auth-card"
+            data-component="auth-card"
+            aria-label="Online Banking"
+          >
             <header class="auth-card__header">
               <h2 class="auth-card__title text-label">Online Banking</h2>
             </header>
 
-            <div class="auth-card__tabs" role="tablist" aria-label="Account type">
+            <div
+              class="auth-card__tabs"
+              role="tablist"
+              aria-label="Sign in method"
+              data-active-tab="signin"
+            >
               <button
                 type="button"
                 class="auth-card__tab auth-card__tab--active"
                 role="tab"
-                id="auth-tab-sign-in"
+                id="auth-tab-signin"
                 aria-selected="true"
-                aria-controls="auth-panel-sign-in"
-                data-auth-tab="sign-in"
+                aria-controls="auth-panel-signin"
+                data-auth-tab="signin"
               >
                 Sign In
               </button>
@@ -130,44 +193,84 @@
 
             <div class="auth-card__body">
               <div
-                class="auth-card__panel auth-card__panel--sign-in"
-                id="auth-panel-sign-in"
+                class="auth-card__panel auth-card__panel--signin auth-card__panel--active"
+                id="auth-panel-signin"
                 role="tabpanel"
-                aria-labelledby="auth-tab-sign-in"
+                aria-labelledby="auth-tab-signin"
               >
-                <button type="button" id="google-auth" class="btn btn--google btn--google-brand">
-                  <span class="btn--google-icon" aria-hidden="true">G</span>
-                  <span class="btn--google-label">Google</span>
-                </button>
-                <p class="auth-card__tagline">Start Your Journey Now!</p>
+                <div class="auth-card__pre-divider">
+                  <button
+                    type="button"
+                    id="google-auth"
+                    class="btn btn--google auth-card__google"
+                  >
+                    <span class="btn__google-icon" aria-hidden="true">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        focusable="false"
+                      >
+                        <path
+                          fill="#4285F4"
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        />
+                        <path
+                          fill="#34A853"
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        />
+                        <path
+                          fill="#FBBC05"
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+                        />
+                        <path
+                          fill="#EA4335"
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                        />
+                      </svg>
+                    </span>
+                    <span class="btn__google-label">Google</span>
+                  </button>
+                  <a class="auth-card__forgot" href="#forgot-password">
+                    Forgot Password?
+                  </a>
+                </div>
                 <div class="auth-card__divider" role="separator">
                   <span class="auth-card__divider-line"></span>
                   <span class="auth-card__divider-text">or</span>
                   <span class="auth-card__divider-line"></span>
                 </div>
-                <button type="button" class="btn btn--outline-gold">Create account</button>
+                <button type="button" class="btn btn--create-account">
+                  Create account
+                </button>
               </div>
-
               <div
                 class="auth-card__panel auth-card__panel--email"
                 id="auth-panel-email"
                 role="tabpanel"
                 aria-labelledby="auth-tab-email"
-                hidden
               >
-                <label class="auth-card__field">
-                  <span class="auth-card__field-label sr-only">Email</span>
+                <form class="auth-card__email-form" action="#" novalidate>
                   <input
+                    class="auth-card__email-input"
                     type="email"
-                    class="auth-card__input"
                     name="email"
                     placeholder="Enter Email"
                     autocomplete="email"
+                    aria-label="Enter Email"
                   />
-                </label>
-                <button type="button" class="btn btn--gold">Sign in with email</button>
-                <div class="auth-card__divider auth-card__divider--plain" role="separator"></div>
-                <p class="auth-card__tagline">Start Your Journey Now!</p>
+                  <button type="button" class="btn btn--email-submit">
+                    Sign in with email
+                  </button>
+                </form>
+                <div
+                  class="auth-card__single-divider"
+                  role="separator"
+                  aria-hidden="true"
+                ></div>
+                <a class="auth-card__forgot" href="#forgot-password">
+                  Forgot Password?
+                </a>
               </div>
             </div>
           </aside>
@@ -180,12 +283,65 @@
         data-component="crypto-hub"
         aria-label="Live cryptocurrency markets"
       >
-        <div class="crypto-hub__decor crypto-hub__decor--tl" aria-hidden="true"></div>
-        <div class="crypto-hub__decor crypto-hub__decor--br" aria-hidden="true"></div>
+        <div class="crypto-hub__lines" aria-hidden="true">
+          <svg
+            class="crypto-hub__line-svg crypto-hub__line-svg--tl"
+            viewBox="0 0 460 209"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="crypto-hub__line-path"
+              pathLength="1"
+              d="M0.85011 208.024C0.850114 190.024 0.0623536 123.198 0.850116 93.5246C1.06243 85.5275 4.58025 81.3485 7.35009 78.0246C9.85005 75.0246 63.1835 28.5246 88.8501 6.02463C90.3501 4.70971 96.3501 0.124633 104.35 0.524633C112.35 0.924633 344.35 0.6913 459.35 0.524633"
+            />
+            <circle
+              class="crypto-hub__line-dot crypto-hub__line-dot--tl-start"
+              cx="0.85"
+              cy="208.024"
+              r="5.5"
+            />
+            <circle
+              class="crypto-hub__line-dot crypto-hub__line-dot--tl-end"
+              cx="459.35"
+              cy="0.524633"
+              r="5.5"
+            />
+          </svg>
+
+          <svg
+            class="crypto-hub__line-svg crypto-hub__line-svg--br"
+            viewBox="0 0 614 287"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="crypto-hub__line-path"
+              pathLength="1"
+              d="M613 0.00732422C612.5 34.5073 613 105.007 613 113.507C613 121.597 608.238 127.007 605 130.507C586.5 150.507 548.8 191.307 546 194.507C543.2 197.707 537.5 201.507 531 201.507C462.833 201.174 326.1 200.707 316.5 201.507C306.9 202.307 302.3 209.507 299.5 213.007C282.167 234.674 247.5 276.607 245.5 279.007C243.5 281.407 239 286.007 229 286.007H0"
+            />
+            <circle
+              class="crypto-hub__line-dot crypto-hub__line-dot--br-start"
+              cx="613"
+              cy="0.00732422"
+              r="5.5"
+            />
+            <circle
+              class="crypto-hub__line-dot crypto-hub__line-dot--br-end"
+              cx="0"
+              cy="286.007"
+              r="5.5"
+            />
+          </svg>
+        </div>
 
         <div class="crypto-hub__layout container">
           <div class="crypto-hub__col crypto-hub__col--left">
-            <ul class="crypto-list crypto-list--left" id="crypto-list-left" role="list">
+            <ul
+              class="crypto-list crypto-list--left"
+              id="crypto-list-left"
+              role="list"
+            >
               <li class="crypto-row crypto-row--left" data-coin="btc">
                 <span class="crypto-row__price text-price" data-price>—</span>
                 <span class="crypto-row__name">Bitcoin</span>
@@ -215,20 +371,77 @@
           </div>
 
           <div class="crypto-hub__center">
-            <div class="crypto-hub__rings" aria-hidden="true">
-              <span class="crypto-hub__ring"></span>
-              <span class="crypto-hub__ring"></span>
-              <span class="crypto-hub__ring"></span>
+            <div class="crypto-hub__rings-wrap">
+              <div class="crypto-hub__rings" aria-hidden="true">
+                <div class="crypto-hub__rings-rotator">
+                  <img
+                    class="crypto-hub__ring crypto-hub__ring--1"
+                    src="/figma/border/Ellipse1.png"
+                    srcset="/figma/border/Ellipse1.png 1x, /figma/border/Ellipse1@2x.png 2x"
+                    alt=""
+                    width="594"
+                    height="594"
+                    decoding="async"
+                  />
+                  <img
+                    class="crypto-hub__ring crypto-hub__ring--2"
+                    src="/figma/border/Ellipse2.png"
+                    srcset="/figma/border/Ellipse2.png 1x, /figma/border/Ellipse2@2x.png 2x"
+                    alt=""
+                    width="672"
+                    height="672"
+                    decoding="async"
+                  />
+                  <img
+                    class="crypto-hub__ring crypto-hub__ring--3"
+                    src="/figma/border/Ellipse3.png"
+                    srcset="/figma/border/Ellipse3.png 1x, /figma/border/Ellipse3@2x.png 2x"
+                    alt=""
+                    width="764"
+                    height="764"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+              <div class="crypto-hub__center-ui">
+              <h2 class="crypto-hub__heading text-display">Online Banking</h2>
+                <div class="crypto-hub__add" id="crypto-add">
+                  <button
+                    type="button"
+                    class="crypto-hub__add-btn"
+                    id="btn-add-crypto"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="crypto-add-menu"
+                  >
+                    <span class="crypto-hub__add-label"
+                      >Add a Cryptocurrency</span
+                    >
+                    <span
+                      class="crypto-hub__add-chevron"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                  <div
+                    id="crypto-add-menu"
+                    class="crypto-hub__add-menu"
+                    role="listbox"
+                    aria-label="Add a cryptocurrency"
+                    aria-hidden="true"
+                  >
+                    <ul class="crypto-hub__add-list" role="presentation"></ul>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 class="crypto-hub__heading text-display">Online Banking</h2>
-            <button type="button" class="crypto-hub__add-btn" id="btn-add-crypto" aria-haspopup="listbox">
-              <span class="crypto-hub__add-label">Add a Cryptocurrency</span>
-              <span class="crypto-hub__add-chevron" aria-hidden="true"></span>
-            </button>
           </div>
 
           <div class="crypto-hub__col crypto-hub__col--right">
-            <ul class="crypto-list crypto-list--right" id="crypto-list-right" role="list">
+            <ul
+              class="crypto-list crypto-list--right"
+              id="crypto-list-right"
+              role="list"
+            >
               <li class="crypto-row crypto-row--right" data-coin="bnb">
                 <span class="crypto-row__icon" aria-hidden="true"></span>
                 <span class="crypto-row__name">Binance Coin</span>
@@ -258,37 +471,53 @@
           </div>
 
           <!-- WebSocket live cards (features/crypto-live) — Phase 6 migrates into crypto-row slots -->
-          <div id="crypto-grid" class="crypto-grid crypto-hub__live-grid" aria-live="polite"></div>
+          <div
+            id="crypto-grid"
+            class="crypto-grid crypto-hub__live-grid"
+            aria-live="polite"
+          ></div>
         </div>
       </section>
     </main>
 
     <div class="overlays" id="overlays" aria-hidden="false">
-      <nav
+      <div
         class="mobile-menu"
         id="mobile-menu"
         aria-label="Mobile navigation"
         hidden
         aria-hidden="true"
       >
-        <div class="mobile-menu__header">
-          <span class="mobile-menu__logo text-display">KAIROS</span>
-          <button
-            type="button"
-            class="mobile-menu__close"
-            id="mobile-menu-close"
-            aria-label="Close menu"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <ul class="mobile-menu__list">
-          <li><a href="#hero" class="mobile-menu__link header__link">Home</a></li>
-          <li><a href="#about" class="mobile-menu__link header__link">About Us</a></li>
-          <li><a href="#projects" class="mobile-menu__link header__link">Projects</a></li>
-          <li><a href="#contact" class="mobile-menu__link header__link">Contact Us</a></li>
-        </ul>
-      </nav>
+        <button
+          type="button"
+          class="mobile-menu__backdrop"
+          id="mobile-menu-backdrop"
+          tabindex="-1"
+          aria-label="Close menu"
+        ></button>
+        <nav class="mobile-menu__panel" aria-label="Mobile navigation">
+          <ul class="mobile-menu__list">
+            <li>
+              <a href="#hero" class="mobile-menu__link header__link">Home</a>
+            </li>
+            <li>
+              <a href="#about" class="mobile-menu__link header__link"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a href="#projects" class="mobile-menu__link header__link"
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a href="#contact" class="mobile-menu__link header__link"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
 
       <div
         class="modal modal--learn-more"
@@ -298,15 +527,46 @@
         aria-labelledby="modal-learn-more-title"
         hidden
       >
-        <button type="button" class="modal__close" data-modal-close aria-label="Close dialog">
-          <span aria-hidden="true">×</span>
-        </button>
-        <div class="modal__content">
-          <h2 class="modal__title text-display" id="modal-learn-more-title">
-            The digital bridge between reality and tomorrow
-          </h2>
-          <div class="modal__body">
-            <p>Modal content — Phase 7.</p>
+        <div class="modal__backdrop" data-modal-close aria-hidden="true"></div>
+        <div class="modal__content modal__content--learn">
+          <div class="modal__learn-wrap">
+            <div class="modal__learn-stage">
+              <div class="modal__learn-scroll">
+              <h2 class="modal__title text-display" id="modal-learn-more-title">
+                <span class="modal__title-line">THE DIGITAL BRIDGE</span>
+                <span class="modal__title-line">BETWEEN REALITY AND</span>
+                <span class="modal__title-line">TOMORROW</span>
+              </h2>
+              <div class="modal__body">
+                <p class="modal__text">
+                  <span class="modal__text-line">When you turn on your smart alarm clock in the morning of 2026, it already knows you slept seventeen minutes</span>
+                  <span class="modal__text-line">less than usual. The algorithm picks a morning playlist based on your heart rate and the current moon phase.</span>
+                  <span class="modal__text-line">Your voice assistant, trained on thousands of previous conversations, doesn't just say "good morning" - it</span>
+                  <span class="modal__text-line">reminds you: "Don't forget to pick up your package from the drone post before 10:30 AM." You step up to the</span>
+                  <span class="modal__text-line">mirror, and instead of your reflection, you see graphs of your hydration levels, your daily schedule, and a</span>
+                  <span class="modal__text-line">suggestion: "You might want to take extra vitamin D - it's going to be cloudy today."</span>
+                </p>
+                <p class="modal__text">
+                  <span class="modal__text-line">In the evening, you activate "dark matter" mode at home: the lights dim gradually. Following your movement: the</span>
+                  <span class="modal__text-line">Wi-Fi reallocates bandwidth to stream a movie in 32K; and the lounge chair warms up exactly the spot on your</span>
+                  <span class="modal__text-line">back that got tired from sitting. On screen - not just a film: a generative neural network adjusts the subtitles,</span>
+                  <span class="modal__text-line">replaces store signs with brands you recognize, and even redubs the actors if you whisper a request.</span>
+                </p>
+                <p class="modal__text">
+                  <span class="modal__text-line">When you turn on your smart alarm clock in the morning of 2026, it already knows you slept seventeen minutes</span>
+                  <span class="modal__text-line">less than usual. The algorithm picks a morning playlist based on your heart rate and the current moon phase.</span>
+                </p>
+              </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="modal__close modal__close--corner"
+              data-modal-close
+              aria-label="Close dialog"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
         </div>
       </div>
@@ -319,12 +579,152 @@
         aria-label="Promo video"
         hidden
       >
-        <button type="button" class="modal__close" data-modal-close aria-label="Close video">
-          <span aria-hidden="true">×</span>
-        </button>
+        <div class="modal__backdrop" data-modal-close aria-hidden="true"></div>
         <div class="modal__content modal__content--video">
-          <div class="modal__video-shell">
-            <p class="modal__video-placeholder">Video player — Phase 7.</p>
+          <div class="modal__video-wrap">
+            <div class="modal__video-stage">
+              <div class="video-player" id="video-player">
+              <video
+                class="video-player__media"
+                src="/video/HP.mp4"
+                preload="metadata"
+                playsinline
+              ></video>
+              <button
+                type="button"
+                class="video-player__center-play"
+                aria-label="Play video"
+              >
+                <span class="video-player__play-icon" aria-hidden="true"></span>
+              </button>
+              <div class="video-player__controls">
+                <button
+                  type="button"
+                  class="video-player__play-toggle"
+                  aria-label="Play"
+                  aria-pressed="false"
+                >
+                  <svg
+                    class="video-player__icon video-player__icon--play"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 6.5v11l10-5.5-10-5.5z" fill="currentColor" />
+                  </svg>
+                  <svg
+                    class="video-player__icon video-player__icon--pause"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 6h3.5v12H7V6zm6.5 0H17v12h-3.5V6z" fill="currentColor" />
+                  </svg>
+                </button>
+                <div class="video-player__progress-wrap">
+                  <div class="video-player__progress-track" aria-hidden="true">
+                    <div class="video-player__progress-fill"></div>
+                  </div>
+                  <input
+                    type="range"
+                    class="video-player__seek"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    value="0"
+                    aria-label="Seek"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="video-player__volume"
+                  aria-label="Mute"
+                >
+                  <svg
+                    class="video-player__icon video-player__icon--volume-on"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M11 5.5 6.5 9.5H3.5v5h3L11 18.5V5.5z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M14.2 8.8a4.2 4.2 0 0 1 0 6.4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M16.6 6.4a7.6 7.6 0 0 1 0 11.2"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <svg
+                    class="video-player__icon video-player__icon--volume-off"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M11 5.5 6.5 9.5H3.5v5h3L11 18.5V5.5z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M15.5 9.5 18.5 12.5M18.5 9.5 15.5 12.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="video-player__fullscreen"
+                  aria-label="Fullscreen"
+                >
+                  <svg
+                    class="video-player__icon video-player__icon--fullscreen"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M5.5 9V5.5H9M15 5.5H18.5V9M18.5 15v3.5H15M9 18.5H5.5V15"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <svg
+                    class="video-player__icon video-player__icon--fullscreen-exit"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M9 9.5V5.5H5M15 5.5h4V9.5M19 15v4h-4M9 18.5H5V15"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            </div>
+            <button
+              type="button"
+              class="modal__close modal__close--corner"
+              data-modal-close
+              aria-label="Close video"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
         </div>
       </div>
