@@ -1,17 +1,250 @@
-/* Hero — overlay & type (structure in layout.css) */
+/* Hero — Phase 4 pixel styling (HP.png / M. HP.png / T. HP.png) */
+
+/* ——— 1. Overlay + layout ——— */
+.hero.section {
+  padding-block: 0;
+}
+
+.hero {
+  min-height: 100svh;
+  background-color: var(--color-bg-primary);
+}
+
+.hero__video {
+  object-position: center 40%;
+}
+
 .hero__overlay {
   background: linear-gradient(
     180deg,
-    rgba(0, 11, 38, 0.45) 0%,
-    var(--color-overlay-hero) 55%,
-    var(--color-bg-primary) 100%
+    rgba(0, 11, 38, 0.35) 0%,
+    var(--color-bg-crypto) 100%
   );
+  pointer-events: none;
 }
 
+.hero__layout {
+  min-height: 100svh;
+  padding-top: calc(var(--header-height) + var(--space-6));
+  padding-bottom: var(--space-10);
+  gap: var(--space-8);
+  align-content: center;
+  align-items: center;
+}
+
+.hero__copy {
+  gap: var(--space-5);
+  max-width: 36rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.hero .auth-card {
+  width: 100%;
+  max-width: 22.5rem;
+  justify-self: center;
+  align-self: center;
+}
+
+/* ——— 2. Typography ——— */
 .hero__title {
   margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--hero-title-size);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
 }
 
 .hero__subtitle {
   margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-body);
+  font-size: var(--hero-body-size);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ——— 3. CTA split buttons (HP.png) ——— */
+.btn-split {
+  display: inline-flex;
+  align-items: stretch;
+  min-height: var(--hero-cta-height);
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  text-align: left;
+  transition:
+    filter var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.btn-split:hover {
+  filter: brightness(1.05);
+}
+
+.btn-split:active {
+  transform: scale(0.98);
+}
+
+.btn-split:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
+}
+
+.btn-split__label {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1.25rem;
+  white-space: nowrap;
+}
+
+.btn-split__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--hero-cta-icon-width);
+  clip-path: polygon(0.75rem 0, 100% 0, 100% 100%, 0 100%);
+  margin-left: -1px;
+}
+
+/* Learn More — white body + purple arrow block */
+.btn-split--learn .btn-split__label {
+  color: var(--color-purple-deep);
+  background: var(--color-surface);
+}
+
+.btn-split--learn .btn-split__icon {
+  background: var(--color-purple-deep);
+}
+
+.btn-split--learn .btn-split__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 2px solid var(--color-surface);
+  border-right: 2px solid var(--color-surface);
+  transform: translateX(-15%) rotate(45deg);
+}
+
+/* Play Video — ghost body + white play block */
+.btn-split--video .btn-split__label {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-right: none;
+}
+
+.btn-split--video .btn-split__icon {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-left: none;
+}
+
+.btn-split--video .btn-split__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0;
+  height: 0;
+  margin: auto;
+  border-style: solid;
+  border-width: 0.4rem 0 0.4rem 0.65rem;
+  border-color: transparent transparent transparent var(--color-purple-deep);
+  transform: translateX(12%);
+}
+
+/* ——— Responsive ——— */
+@media (max-width: 767px) {
+  .hero__layout {
+    padding-top: calc(var(--header-height-mobile) + var(--space-5));
+    padding-bottom: var(--space-8);
+    gap: var(--space-6);
+    align-content: start;
+  }
+
+  .hero__copy {
+    max-width: none;
+  }
+
+  .hero__title {
+    font-size: clamp(1.25rem, 6.5vw, 1.625rem);
+    letter-spacing: 0.04em;
+  }
+
+  .hero__subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .hero__actions {
+    flex-direction: row;
+    gap: var(--space-2);
+  }
+
+  .btn-split {
+    flex: 1 1 calc(50% - var(--space-1));
+    min-width: 0;
+  }
+
+  .btn-split__label {
+    flex: 1;
+    padding: 0 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .btn-split__icon {
+    width: 2.5rem;
+    clip-path: polygon(0.625rem 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .hero .auth-card {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero__layout {
+    grid-template-columns: 1fr;
+    padding-top: calc(var(--header-height) + var(--space-8));
+    gap: var(--space-10);
+  }
+
+  .hero .auth-card {
+    max-width: 25rem;
+    justify-self: center;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    column-gap: var(--space-10);
+    padding-top: calc(var(--header-height) + var(--space-10));
+    padding-bottom: var(--space-12);
+  }
+
+  .hero__copy {
+    max-width: 38rem;
+  }
+
+  .hero .auth-card {
+    justify-self: end;
+    max-width: 22.5rem;
+  }
 }

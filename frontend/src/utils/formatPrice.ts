@@ -1,15 +1,10 @@
-const usdFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-})
-
-export function formatPrice(value: number): string {
-  if (value >= 1000) {
-    return usdFormatter.format(value)
-  }
-  return usdFormatter.format(value)
+export function formatPrice(value: number, decimals = 2): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(value)
 }
 
 export function formatChange(percent: number): string {

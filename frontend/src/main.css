@@ -9,5 +9,6 @@
 /* 2. Legacy section styles (minimal skeleton — replaced in Phase 3+) */
 @import "./styles/sections/header.css";
 @import "./styles/sections/hero.css";
+@import "./styles/sections/auth-card.css";
+@import "./styles/sections/crypto-hub.css";
 @import "./styles/sections/buttons.css";
-@import "./styles/sections/markets.css";

@@ -5,11 +5,7 @@ import {
   redirectToGoogleAuth,
   renderUserProfile,
 } from './features/auth/index.ts'
-import {
-  renderCryptoGrid,
-  setConnectionStatus,
-  updateCryptoCard,
-} from './features/crypto-live/index.ts'
+import { initCryptoRows, setConnectionStatus, updateCryptoRow } from './features/crypto-live/index.ts'
 import { CryptoSocket } from './services/cryptoSocket.ts'
 
 function initAuth(): void {
@@ -39,13 +35,10 @@ function initHeroVideo(): void {
 }
 
 function initCrypto(): void {
-  const grid = document.getElementById('crypto-grid')
-  if (!grid) return
-
-  renderCryptoGrid(grid)
+  initCryptoRows()
 
   const socket = new CryptoSocket(
-    (update) => updateCryptoCard(update, true),
+    (update) => updateCryptoRow(update, true),
     (connected) => setConnectionStatus(connected),
   )
 

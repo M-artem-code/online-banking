@@ -1,39 +1,128 @@
-/* Header — visual tokens (structure in layout.css) */
+/* Header — Phase 4 pixel styling (Figma: HP.png, M. HP.png, M. HP Menu.png) */
+
 .site-header,
 .header {
   height: var(--header-height);
-  background: rgba(0, 11, 38, 0.88);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-header-scrim);
+  border-bottom: none;
+  backdrop-filter: none;
 }
 
+.header__inner {
+  min-height: var(--header-height);
+  padding-inline: var(--header-padding-x);
+}
+
+/* ——— Logo (Kairos wordmark asset) ——— */
 .header__logo {
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  letter-spacing: var(--tracking-display);
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header__logo-text {
+  display: block;
+  width: var(--header-logo-width);
+  height: var(--header-logo-height);
+  background: url("/figma/ui-kit/Kairos.png") no-repeat left center / contain;
+  text-indent: -9999px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ——— Desktop navigation ——— */
+.site-nav {
+  justify-self: center;
+}
+
+.site-nav__list {
+  align-items: center;
+  gap: 0;
+}
+
+.site-nav__item {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav__separator {
+  flex-shrink: 0;
+  width: 1px;
+  height: var(--header-nav-sep-height);
+  margin-inline: var(--header-nav-gap);
+  background: var(--color-nav-separator);
 }
 
 .site-nav__link,
 .header__link {
   font-family: var(--font-display);
   font-size: var(--text-nav);
+  font-weight: 400;
+  line-height: 1;
   letter-spacing: var(--tracking-nav);
   text-transform: uppercase;
-  color: var(--color-text-muted);
-  transition: color var(--transition-fast);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
 }
 
 .site-nav__link:hover,
-.header__link:hover {
+.site-nav__link:focus-visible,
+.header__link:hover,
+.header__link:focus-visible {
+  opacity: 0.75;
   color: var(--color-text-primary);
+}
+
+.site-nav__link:focus-visible,
+.header__link:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 4px;
+}
+
+/* ——— Actions (profile + burger) ——— */
+.header__actions {
+  gap: var(--space-4);
 }
 
 .header__burger {
   display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--header-burger-size);
+  height: var(--header-burger-size);
+  padding: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-purple-deep);
+  transition: background var(--transition-fast);
+}
+
+.header__burger:hover {
+  background: #3a0080;
+}
+
+.header__burger:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
+}
+
+.header__burger-line {
+  display: block;
+  width: 1.125rem;
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 1px;
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-fast);
+}
+
+.header__burger-line + .header__burger-line {
+  margin-top: 4px;
 }
 
 .header--menu-open .header__burger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 
 .header--menu-open .header__burger-line:nth-child(2) {
@@ -41,9 +130,10 @@
 }
 
 .header--menu-open .header__burger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
+/* ——— User profile (post-OAuth) ——— */
 .user-profile {
   display: flex;
   align-items: center;
@@ -51,24 +141,148 @@
 }
 
 .user-profile__avatar {
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: var(--radius-full);
   object-fit: cover;
   border: 2px solid var(--color-gold);
 }
 
 .user-profile__name {
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   font-weight: 500;
-  max-width: 120px;
+  max-width: 7.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--color-text-primary);
 }
 
+/* ——— Mobile fullscreen menu ——— */
+.mobile-menu {
+  padding: var(--space-6) var(--header-padding-x);
+  background: var(--color-bg-menu);
+}
+
+.mobile-menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height-mobile);
+  margin-bottom: var(--space-8);
+}
+
+.mobile-menu__logo {
+  display: block;
+  width: var(--header-logo-width);
+  height: var(--header-logo-height);
+  background: url("/figma/ui-kit/Kairos.png") no-repeat left center / contain;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+.mobile-menu__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--header-burger-size);
+  height: var(--header-burger-size);
+  padding: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-purple-deep);
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: background var(--transition-fast);
+}
+
+.mobile-menu__close:hover {
+  background: #3a0080;
+}
+
+.mobile-menu__close:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
+}
+
+.mobile-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-6);
+}
+
+.mobile-menu__link {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  transition: opacity var(--transition-fast);
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link:focus-visible {
+  opacity: 0.75;
+  color: var(--color-text-primary);
+}
+
+.mobile-menu__link:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 4px;
+}
+
+.mobile-menu[hidden] {
+  display: none !important;
+}
+
+/* ——— Responsive ——— */
 @media (max-width: 767px) {
+  .site-header,
+  .header {
+    height: var(--header-height-mobile);
+  }
+
+  .header__inner {
+    min-height: var(--header-height-mobile);
+  }
+
+  .header__logo-text {
+    width: 6.25rem;
+    height: 1.5rem;
+  }
+
+  .header__burger {
+    display: flex;
+    flex-direction: column;
+  }
+
   .user-profile__name {
     display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .header__burger {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header__logo-text {
+    width: 8.5rem;
+    height: 2rem;
+  }
+
+  .mobile-menu__logo {
+    width: 8.5rem;
+    height: 2rem;
+  }
+
+  .site-nav__separator {
+    margin-inline: 1.375rem;
   }
 }

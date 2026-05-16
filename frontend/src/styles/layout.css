@@ -33,6 +33,9 @@
   align-items: center;
   gap: var(--space-4);
   min-height: var(--header-height);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  width: 100%;
 }
 
 .site-nav__list {
@@ -105,92 +108,6 @@
   gap: var(--space-4);
 }
 
-.auth-card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 22.5rem;
-  justify-self: end;
-}
-
-.auth-card__tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.auth-card__body {
-  display: flex;
-  flex-direction: column;
-}
-
-.auth-card__panel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-5);
-}
-
-/* ——— Crypto hub ——— */
-.crypto-hub {
-  background: var(--color-bg-crypto);
-}
-
-.crypto-hub__layout {
-  position: relative;
-  display: grid;
-  gap: var(--space-8);
-  align-items: center;
-}
-
-.crypto-hub__col--left,
-.crypto-hub__col--right {
-  min-width: 0;
-}
-
-.crypto-hub__center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-  text-align: center;
-}
-
-.crypto-hub__rings {
-  position: relative;
-  width: min(100%, 18rem);
-  aspect-ratio: 1;
-}
-
-.crypto-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.crypto-row {
-  display: grid;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.crypto-row--left {
-  grid-template-columns: 1fr auto auto;
-  text-align: right;
-}
-
-.crypto-row--right {
-  grid-template-columns: auto auto 1fr;
-  text-align: left;
-}
-
-/* Live WebSocket cards — interim row below hub until Phase 6 */
-.crypto-hub__live-grid {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  gap: var(--space-4);
-}
-
 /* ——— Overlays shell ——— */
 .overlays {
   position: relative;
@@ -208,21 +125,6 @@
   z-index: 150;
   display: flex;
   flex-direction: column;
-  padding: var(--space-6);
-  background: var(--color-bg-menu);
-}
-
-.mobile-menu__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-10);
-}
-
-.mobile-menu__list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
 }
 
 .modal {
@@ -252,76 +154,10 @@
     display: flex;
   }
 
-  .header__burger {
-    display: none;
-  }
-
-  .hero__layout {
-    grid-template-columns: 1fr minmax(280px, 360px);
-    align-items: center;
-  }
-}
-
-@media (min-width: 1200px) {
-  .crypto-hub__layout {
-    grid-template-columns: 1fr minmax(16rem, 22rem) 1fr;
-    grid-template-rows: auto auto;
-  }
-
-  .crypto-hub__col--left {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .crypto-hub__center {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .crypto-hub__col--right {
-    grid-column: 3;
-    grid-row: 1;
-  }
-
-  .crypto-hub__live-grid {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
 }
 
 @media (max-width: 767px) {
   .section {
     padding-block: var(--space-8);
-  }
-
-  .header__burger {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: var(--space-2);
-  }
-
-  .header__burger-line {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--color-text-primary);
-    border-radius: 1px;
-  }
-
-  .crypto-hub__layout {
-    grid-template-columns: 1fr;
-  }
-
-  .crypto-row--left,
-  .crypto-row--right {
-    grid-template-columns: auto 1fr auto;
-    text-align: left;
-  }
-}
-
-@media (max-width: 1199px) {
-  .crypto-hub__layout {
-    grid-template-columns: 1fr;
   }
 }

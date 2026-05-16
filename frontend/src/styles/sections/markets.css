@@ -1,52 +1,8 @@
-/* Crypto hub — interim card grid (structure in layout.css) */
+/* Legacy crypto-card styles — #crypto-grid hidden; WS still mounts here until row wiring */
+
 .crypto-card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
-}
-
-.crypto-card__header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.crypto-card__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.crypto-card__symbol {
-  font-family: var(--font-display);
-  font-weight: 600;
-}
-
-.crypto-card__pair {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
-.crypto-card__price {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-}
-
-.crypto-card__change--up {
-  color: var(--color-positive);
-}
-
-.crypto-card__change--down {
-  color: var(--color-negative);
-}
-
-.crypto-card__status--connected {
-  color: var(--color-accent-line);
 }

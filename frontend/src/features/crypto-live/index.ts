@@ -1,1 +1,1 @@
-export { renderCryptoGrid, setConnectionStatus, updateCryptoCard } from './cryptoCards.ts'
+export { initCryptoRows, setConnectionStatus, updateCryptoRow } from './cryptoCards.ts'
