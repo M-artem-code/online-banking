@@ -1,6 +1,6 @@
-import { COINS, type CoinConfig } from '../config/coins.ts'
-import { formatChange, formatPrice } from '../utils/formatPrice.ts'
-import type { TickerUpdate } from '../services/cryptoSocket.ts'
+import { COINS, type CoinConfig } from '../../config/coins.ts'
+import { formatChange, formatPrice } from '../../utils/formatPrice.ts'
+import type { TickerUpdate } from '../../services/cryptoSocket.ts'
 
 const cardElements = new Map<string, { price: HTMLElement; change: HTMLElement; status: HTMLElement }>()
 

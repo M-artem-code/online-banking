@@ -1,7 +1,15 @@
 import './main.css'
-import { parseAuthFromUrl, redirectToGoogleAuth, renderUserProfile } from './app/auth.ts'
-import { renderCryptoGrid, setConnectionStatus, updateCryptoCard } from './app/cryptoCards.ts'
-import { initMobileMenu } from './app/menu.ts'
+import { initMobileMenu } from './components/header/index.ts'
+import {
+  parseAuthFromUrl,
+  redirectToGoogleAuth,
+  renderUserProfile,
+} from './features/auth/index.ts'
+import {
+  renderCryptoGrid,
+  setConnectionStatus,
+  updateCryptoCard,
+} from './features/crypto-live/index.ts'
 import { CryptoSocket } from './services/cryptoSocket.ts'
 
 function initAuth(): void {
@@ -10,8 +18,7 @@ function initAuth(): void {
     renderUserProfile(user)
   }
 
-  const handleAuth = () => redirectToGoogleAuth()
-  document.getElementById('google-auth')?.addEventListener('click', handleAuth)
+  document.getElementById('google-auth')?.addEventListener('click', () => redirectToGoogleAuth())
 }
 
 function initHeroVideo(): void {
@@ -43,7 +50,6 @@ function initCrypto(): void {
   )
 
   socket.connect()
-
   window.addEventListener('beforeunload', () => socket.disconnect())
 }
 

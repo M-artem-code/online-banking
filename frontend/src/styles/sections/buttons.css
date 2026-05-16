@@ -41,15 +41,16 @@
 }
 
 .btn--google {
-  background: #fff;
-  color: #1f1f1f;
-  padding: 0.625rem 1.25rem;
-  border: 1px solid #dadce0;
+  background: var(--color-gold);
+  color: var(--color-surface);
+  padding: 0.75rem 1.25rem;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 600;
 }
 
 .btn--google:hover {
-  background: #f8f9fa;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  background: var(--color-gold-hover);
 }
 
 .btn--google[hidden] {

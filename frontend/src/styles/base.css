@@ -1,29 +1,11 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--color-text-primary);
   background: var(--color-bg-primary);
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-img,
-video {
-  max-width: 100%;
-  display: block;
 }
 
 a {
@@ -32,31 +14,9 @@ a {
 }
 
 button {
-  font: inherit;
   cursor: pointer;
   border: none;
   background: none;
-}
-
-ul {
-  list-style: none;
-}
-
-.container {
-  width: 100%;
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--space-5);
-}
-
-.section {
-  padding-block: var(--space-10);
-}
-
-@media (max-width: 768px) {
-  .section {
-    padding-block: var(--space-8);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

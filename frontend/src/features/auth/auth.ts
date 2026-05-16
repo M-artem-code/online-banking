@@ -1,13 +1,11 @@
+import { getApiUrl } from '../../config/env.ts'
+
 const STORAGE_KEY = 'online_banking_user'
 
 export interface AuthUser {
   name: string
   email: string
   picture: string
-}
-
-export function getApiUrl(): string {
-  return import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 }
 
 export function redirectToGoogleAuth(): void {
@@ -68,7 +66,6 @@ function cleanAuthParams(): void {
 export function renderUserProfile(user: AuthUser): void {
   const profileEl = document.getElementById('user-profile')
   const authBtn = document.getElementById('google-auth')
-  const authHeroBtn = document.getElementById('google-auth-hero')
 
   if (!profileEl) return
 
@@ -79,7 +76,6 @@ export function renderUserProfile(user: AuthUser): void {
   `
 
   authBtn?.setAttribute('hidden', '')
-  authHeroBtn?.setAttribute('hidden', '')
 }
 
 function escapeHtml(text: string): string {

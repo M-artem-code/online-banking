@@ -1,6 +1,8 @@
+import { query } from '../../core/dom.ts'
+
 export function initMobileMenu(): void {
   const toggle = document.getElementById('menu-toggle')
-  const header = document.querySelector('.header')
+  const header = query('.header')
   if (!toggle || !header) return
 
   toggle.addEventListener('click', () => {

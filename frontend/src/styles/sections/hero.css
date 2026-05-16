@@ -22,7 +22,7 @@
   background: linear-gradient(
     180deg,
     rgba(10, 14, 23, 0.55) 0%,
-    var(--color-overlay) 50%,
+    var(--color-overlay-hero) 50%,
     var(--color-bg-primary) 100%
   );
   z-index: 1;
@@ -44,7 +44,7 @@
 }
 
 .hero__title {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 400;
   line-height: 1.15;
@@ -62,18 +62,18 @@
 
 .auth-card__shell {
   padding: var(--space-5);
-  background: var(--color-bg-card);
-  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
   border: 1px solid var(--color-border);
 }
 
 .auth-card__label {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 0.875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: var(--space-4);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-surface);
 }
 
 @media (min-width: 768px) {

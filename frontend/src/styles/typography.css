@@ -1,0 +1,46 @@
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-primary);
+}
+
+.text-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.text-display--xl {
+  font-size: var(--text-display-xl);
+}
+
+.text-display--lg {
+  font-size: var(--text-display-lg);
+}
+
+.text-nav {
+  font-family: var(--font-display);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+}
+
+.text-label {
+  font-family: var(--font-display);
+  font-size: var(--text-body-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.text-body-muted {
+  color: var(--color-text-muted);
+}
+
+.text-price {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
