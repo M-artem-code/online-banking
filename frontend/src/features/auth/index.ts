@@ -1,6 +1,7 @@
 export {
-  type AuthUser,
+  initAuth,
   parseAuthFromUrl,
   redirectToGoogleAuth,
-  renderUserProfile,
-} from './auth.ts'
+  renderUserProfile, type AuthUser
+} from "./auth.ts";
+

@@ -1,144 +1,217 @@
-# Online Banking — Trainee FullStack Project
+# Online Banking
 
-Crypto landing page with live WebSocket prices and Google OAuth2 (no server-side user sessions).
+Adaptive landing page for a trainee FullStack task.
 
-## Live demo
+- Frontend: Vite + TypeScript + CSS, no frontend frameworks.
+- Backend: Python + FastAPI for Google OAuth2.
+- Crypto prices: Binance public WebSocket.
 
-| Service  | URL |
-|----------|-----|
-| Frontend | _Deploy to Vercel and paste URL here_ |
-| Backend  | _Deploy to Railway and paste URL here_ |
+## Live Demo
 
-Health check: `GET {BACKEND_URL}/health` → `{"status":"ok"}`
+Add production links before submitting the task:
 
-## Tech stack
+| Service | URL |
+| --- | --- |
+| Frontend | `https://your-frontend-url` |
+| Backend health | `https://your-backend-url/health` |
 
-- **Frontend:** Vite, TypeScript, vanilla CSS/JS (no UI frameworks)
-- **Backend:** Python, FastAPI, Authlib (Google OAuth2)
-- **Crypto prices:** Binance public WebSocket API
-- **Deploy:** Vercel (frontend) + Railway (backend)
+Expected health response:
 
-## Project structure
-
-```
-online-banking/
-├── frontend/          # Vite SPA
-├── backend/           # FastAPI OAuth API
-├── docs/              # Design tokens (Figma audit)
-└── README.md
+```json
+{ "status": "ok" }
 ```
 
-## Prerequisites
+## Requirements
 
 - Node.js 20+
 - Python 3.12+
-- Google Cloud OAuth 2.0 credentials (Web application)
-- `HP.mp4` from the task archive → `frontend/public/video/HP.mp4`
+- Google OAuth 2.0 credentials
+- Hero video: `frontend/public/video/HP.mp4`
 
-## Local development
+## Project Structure
 
-### 1. Google OAuth setup
+```text
+online-banking/
+  backend/                 FastAPI OAuth backend
+    app/
+      main.py
+      config.py
+      routes/auth.py
+  frontend/                Vite frontend
+    public/                Static assets
+    src/
+      app/                 App bootstrap
+      adapters/            External data adapters
+      components/          UI behavior by section
+      config/              Env and static config
+      core/                Shared browser utilities
+      features/            Auth and live crypto features
+      services/            External services
+      styles/              CSS design system and sections
+      types/               Shared TypeScript types
+```
 
-1. Open [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials.
-2. Create **OAuth 2.0 Client ID** (Web application).
-3. Add **Authorized redirect URIs:**
-   - `http://localhost:8000/auth/google/callback`
-4. Add **Authorized JavaScript origins:**
-   - `http://localhost:5173`
+## Local Setup
 
-### 2. Backend
+### 1. Hero Video
+
+Unzip `HP.mp4.zip` from the task materials and put the file here:
+
+```text
+frontend/public/video/HP.mp4
+```
+
+### 2. Google OAuth
+
+Create a Google OAuth 2.0 Client ID with these local URLs:
+
+```text
+Authorized JavaScript origins:
+http://localhost:5173
+
+Authorized redirect URIs:
+http://localhost:8000/auth/google/callback
+```
+
+### 3. Backend
 
 ```bash
 cd backend
 python -m venv .venv
-# Windows:
+```
+
+Windows:
+
+```bash
 .venv\Scripts\activate
-# macOS/Linux:
-# source .venv/bin/activate
+copy .env.example .env
+```
 
-pip install -r requirements.txt
+macOS/Linux:
+
+```bash
+source .venv/bin/activate
 cp .env.example .env
-# Edit .env with GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+```
 
+Edit `backend/.env`:
+
+```env
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
+FRONTEND_URL=http://localhost:5173
+BACKEND_URL=http://localhost:8000
+```
+
+Install and run:
+
+```bash
+pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-### 3. Frontend
+Backend health check:
+
+```text
+http://localhost:8000/health
+```
+
+### 4. Frontend
+
+Open a second terminal:
 
 ```bash
 cd frontend
 npm install
-cp .env.example .env
-# VITE_API_URL=http://localhost:8000
-
+copy .env.example .env
 npm run dev
 ```
 
-Open http://localhost:5173
+For macOS/Linux use `cp .env.example .env`.
 
-### 4. Hero video
+Open:
 
-Unpack `HP.mp4.zip` from the task materials and copy the file to:
-
-```
-frontend/public/video/HP.mp4
+```text
+http://localhost:5173
 ```
 
-Without this file the hero still works (gradient overlay); video autoplay requires the MP4.
+## Environment Variables
 
-## Environment variables
+Backend: `backend/.env`
 
-### Backend (`backend/.env`)
+| Variable | Example | Required |
+| --- | --- | --- |
+| `GOOGLE_CLIENT_ID` | `xxx.apps.googleusercontent.com` | Yes |
+| `GOOGLE_CLIENT_SECRET` | `GOCSPX-xxx` | Yes |
+| `FRONTEND_URL` | `http://localhost:5173` | Yes |
+| `BACKEND_URL` | `http://localhost:8000` | Yes |
 
-| Variable | Description |
-|----------|-------------|
-| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
-| `FRONTEND_URL` | Frontend origin, e.g. `http://localhost:5173` |
-| `BACKEND_URL` | Backend origin, e.g. `http://localhost:8000` |
-| `SESSION_SECRET` | Optional; random string for OAuth state cookie |
+Frontend: `frontend/.env`
 
-### Frontend (`frontend/.env`)
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_API_URL` | Backend URL, e.g. `http://localhost:8000` |
-
-## Deploy
-
-### Frontend (Vercel)
-
-1. Import the GitHub repo in [Vercel](https://vercel.com).
-2. Set **Root Directory** to `frontend`.
-3. Add env: `VITE_API_URL=https://your-api.up.railway.app`
-4. Deploy.
-
-### Backend (Railway)
-
-1. New project → Deploy from GitHub repo.
-2. Set **Root Directory** to `backend` (uses `Dockerfile`).
-3. Add env vars from `backend/.env.example` with production URLs:
-   - `FRONTEND_URL=https://your-app.vercel.app`
-   - `BACKEND_URL=https://your-api.up.railway.app`
-4. In Google Console, add production redirect URI:
-   - `https://your-api.up.railway.app/auth/google/callback`
-
-## OAuth flow (no user sessions)
-
-1. User clicks **Sign in with Google** → redirect to `{API}/auth/google`.
-2. Google consent → callback `{API}/auth/google/callback`.
-3. Backend reads profile and redirects to `{FRONTEND}/?auth=ok&name=...&email=...&picture=...`.
-4. Frontend stores user in `sessionStorage` (client only) and shows profile in header.
-5. No user data is persisted on the server.
+| Variable | Example | Required |
+| --- | --- | --- |
+| `VITE_API_URL` | `http://localhost:8000` | Yes |
 
 ## Scripts
 
-| Command | Location | Description |
-|---------|----------|-------------|
-| `npm run dev` | frontend | Dev server :5173 |
-| `npm run build` | frontend | Production build |
-| `uvicorn app.main:app --reload` | backend | API server :8000 |
+Frontend:
 
-## License
+```bash
+npm run dev       # local Vite server
+npm run build     # TypeScript check + production build
+npm run preview   # preview production build
+```
 
-Trainee test assignment — MIT or as required by employer.
+Backend:
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+## Deploy
+
+### Backend on Railway
+
+1. Create a Railway project from the GitHub repository.
+2. Set root directory to `backend`.
+3. Add environment variables from `backend/.env`.
+4. Set production URLs:
+
+```env
+FRONTEND_URL=https://your-frontend-url
+BACKEND_URL=https://your-backend-url
+```
+
+5. Add this Google OAuth redirect URI:
+
+```text
+https://your-backend-url/auth/google/callback
+```
+
+### Frontend on Vercel
+
+1. Import the GitHub repository in Vercel.
+2. Set root directory to `frontend`.
+3. Add environment variable:
+
+```env
+VITE_API_URL=https://your-backend-url
+```
+
+4. Deploy.
+
+## How It Works
+
+1. The user opens the Vite frontend.
+2. The hero video runs from `frontend/public/video/HP.mp4`.
+3. The Google button redirects to `{VITE_API_URL}/auth/google`.
+4. FastAPI completes Google OAuth2 and redirects back to the frontend.
+5. Crypto prices are updated in real time through Binance public WebSocket.
+
+## Before Submitting
+
+- `frontend/public/video/HP.mp4` exists.
+- `npm run build` passes in `frontend`.
+- Backend `/health` returns `{ "status": "ok" }`.
+- Google OAuth works on the deployed URLs.
+- README live demo links point to the real public deployment.

@@ -22,6 +22,8 @@ export function initVideoModal(): void {
   const playToggle = modal.querySelector<HTMLButtonElement>('.video-player__play-toggle')
   const seek = modal.querySelector<HTMLInputElement>('.video-player__seek')
   const progressFill = modal.querySelector<HTMLElement>('.video-player__progress-fill')
+  const timeCurrent = modal.querySelector<HTMLElement>('.video-player__time-current')
+  const timeDuration = modal.querySelector<HTMLElement>('.video-player__time-duration')
   const volumeBtn = modal.querySelector<HTMLButtonElement>('.video-player__volume')
   const fullscreenBtn = modal.querySelector<HTMLButtonElement>('.video-player__fullscreen')
   const player = modal.querySelector<HTMLElement>('.video-player')
@@ -33,6 +35,8 @@ export function initVideoModal(): void {
     !playToggle ||
     !seek ||
     !progressFill ||
+    !timeCurrent ||
+    !timeDuration ||
     !volumeBtn ||
     !fullscreenBtn ||
     !player
@@ -43,9 +47,12 @@ export function initVideoModal(): void {
   const doc = document as DocumentWithWebkit
   const videoEl = video as VideoWithWebkit
 
+  video.controls = false
+
   let isOpen = false
   let closeTimer: ReturnType<typeof window.setTimeout> | null = null
   let progressRaf: number | null = null
+  let isScrubbing = false
 
   const getFullscreenElement = (): Element | null =>
     document.fullscreenElement ?? doc.webkitFullscreenElement ?? null
@@ -84,8 +91,9 @@ export function initVideoModal(): void {
 
   const enterFullscreen = async (): Promise<void> => {
     try {
-      if (video.requestFullscreen) {
-        await video.requestFullscreen()
+      /* Player shell — keeps custom controls + click-to-pause in fullscreen */
+      if (player.requestFullscreen) {
+        await player.requestFullscreen()
         return
       }
 
@@ -94,8 +102,8 @@ export function initVideoModal(): void {
         return
       }
 
-      if (player.requestFullscreen) {
-        await player.requestFullscreen()
+      if (video.requestFullscreen) {
+        await video.requestFullscreen()
         return
       }
     } catch {
@@ -106,14 +114,44 @@ export function initVideoModal(): void {
     syncFullscreenUi()
   }
 
+  const formatTime = (seconds: number): string => {
+    if (!Number.isFinite(seconds) || seconds < 0) return '0:00'
+    const total = Math.floor(seconds)
+    const hours = Math.floor(total / 3600)
+    const minutes = Math.floor((total % 3600) / 60)
+    const secs = total % 60
+    const pad = (n: number) => String(n).padStart(2, '0')
+    if (hours > 0) return `${hours}:${pad(minutes)}:${pad(secs)}`
+    return `${minutes}:${pad(secs)}`
+  }
+
+  const updateTime = (): void => {
+    timeCurrent.textContent = formatTime(video.currentTime)
+    timeDuration.textContent = formatTime(video.duration)
+  }
+
   const setProgress = (ratio: number): void => {
     const clamped = Math.min(1, Math.max(0, ratio))
     seek.value = String(clamped * 100)
     progressFill.style.setProperty('--progress', String(clamped))
   }
 
+  const seekToRatio = (ratio: number): void => {
+    const clamped = Math.min(1, Math.max(0, ratio))
+    setProgress(clamped)
+    if (video.duration) {
+      const targetTime = clamped * video.duration
+      video.currentTime = targetTime
+      timeCurrent.textContent = formatTime(targetTime)
+    } else {
+      updateTime()
+    }
+  }
+
   const updateProgress = (): void => {
+    if (isScrubbing) return
     setProgress(video.duration ? video.currentTime / video.duration : 0)
+    updateTime()
   }
 
   const stopProgressLoop = (): void => {
@@ -219,39 +257,52 @@ export function initVideoModal(): void {
     else pause()
   })
 
-  video.addEventListener('click', () => {
+  const togglePlayPause = (): void => {
     if (video.paused) void play()
     else pause()
+  }
+
+  const isPlayerChromeTarget = (target: EventTarget | null): boolean =>
+    target instanceof Element &&
+    Boolean(target.closest('.video-player__controls, .video-player__center-play'))
+
+  player.addEventListener('click', (e) => {
+    if (isPlayerChromeTarget(e.target)) return
+    togglePlayPause()
   })
 
   video.addEventListener('loadedmetadata', updateProgress)
+  video.addEventListener('durationchange', updateProgress)
+  video.addEventListener('timeupdate', updateProgress)
+  video.addEventListener('seeked', updateProgress)
   video.addEventListener('ended', () => {
     stopProgressLoop()
     setPlayingUi(false)
     updateProgress()
   })
 
+  const endScrub = (): void => {
+    isScrubbing = false
+    player.classList.remove('video-player--seeking')
+    updateProgress()
+    if (!video.paused) startProgressLoop()
+  }
+
   seek.addEventListener('pointerdown', () => {
+    isScrubbing = true
     player.classList.add('video-player--seeking')
     stopProgressLoop()
   })
 
-  seek.addEventListener('pointerup', () => {
-    player.classList.remove('video-player--seeking')
-    if (!video.paused) startProgressLoop()
-  })
-
-  seek.addEventListener('pointercancel', () => {
-    player.classList.remove('video-player--seeking')
-    if (!video.paused) startProgressLoop()
-  })
+  seek.addEventListener('pointerup', endScrub)
+  seek.addEventListener('pointercancel', endScrub)
 
   seek.addEventListener('input', () => {
-    const ratio = Number(seek.value) / 100
-    if (video.duration) {
-      video.currentTime = ratio * video.duration
-    }
-    setProgress(ratio)
+    seekToRatio(Number(seek.value) / 100)
+  })
+
+  seek.addEventListener('change', () => {
+    seekToRatio(Number(seek.value) / 100)
   })
 
   volumeBtn.addEventListener('click', () => {

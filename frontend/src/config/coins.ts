@@ -30,13 +30,13 @@ export const COINS: CoinConfig[] = [
     decimals: 2,
   },
   {
-    id: 'sol',
-    symbol: 'SOL',
-    name: 'Solana',
-    stream: 'solusdt',
-    color: '#9945ff',
+    id: 'ada',
+    symbol: 'ADA',
+    name: 'Cardano',
+    stream: 'adausdt',
+    color: '#0033ad',
     column: 'left',
-    decimals: 2,
+    decimals: 4,
   },
   {
     id: 'xrp',
@@ -101,6 +101,20 @@ export const COINS: CoinConfig[] = [
     column: 'right',
     decimals: 3,
   },
+  {
+    id: 'sol',
+    symbol: 'SOL',
+    name: 'Solana',
+    stream: 'solusdt',
+    color: '#9945ff',
+    column: 'right',
+    decimals: 2,
+  },
 ]
 
 export const COIN_BY_SYMBOL = new Map(COINS.map((coin) => [coin.symbol, coin]))
+
+/** Local SVG icons — `/public/icons/crypto/{id}.svg` */
+export function coinIconUrl(id: string): string {
+  return `/icons/crypto/${id}.svg`
+}

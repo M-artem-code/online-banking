@@ -1,6 +1,6 @@
 import { COIN_BY_SYMBOL, COINS } from '../../config/coins.ts'
 import { formatPrice } from '../../utils/formatPrice.ts'
-import type { TickerUpdate } from '../../services/cryptoSocket.ts'
+import type { TickerUpdate } from '../../types/crypto.ts'
 
 const priceElements = new Map<string, HTMLElement>()
 
@@ -29,17 +29,39 @@ export function updateCryptoRow(update: TickerUpdate, _connected: boolean): void
 
 function setRowPrice(symbol: string, price: number): void {
   const coin = COIN_BY_SYMBOL.get(symbol)
-  const priceEl = priceElements.get(symbol)
-  if (!coin || !priceEl) return
+  let priceEl = priceElements.get(symbol)
+  if (!coin) return
 
-  const prevPrice = parseFloat(priceEl.dataset.value ?? '0')
-  const isUp = price >= prevPrice
+  if (!priceEl || !priceEl.isConnected) {
+    const row = document.querySelector(`.crypto-row[data-coin="${coin.id}"]`)
+    const nextPriceEl = row?.querySelector('[data-price]') as HTMLElement | null
+    if (!nextPriceEl) return
+
+    priceEl = nextPriceEl
+    priceElements.set(symbol, priceEl)
+  }
+
+  const prevRaw = priceEl.dataset.value
+  const prevPrice =
+    prevRaw === undefined || prevRaw === '' ? null : parseFloat(prevRaw)
 
   priceEl.textContent = formatPrice(price, coin.decimals)
   priceEl.dataset.value = String(price)
-  priceEl.classList.remove('crypto-row__price--flash-up', 'crypto-row__price--flash-down')
-  void priceEl.offsetWidth
-  priceEl.classList.add(isUp ? 'crypto-row__price--flash-up' : 'crypto-row__price--flash-down')
+
+  if (prevPrice === null) return
+
+  if (price > prevPrice) {
+    priceEl.classList.remove('crypto-row__price--flash-down')
+    void priceEl.offsetWidth
+    priceEl.classList.add('crypto-row__price--flash-up')
+    return
+  }
+
+  if (price < prevPrice) {
+    priceEl.classList.remove('crypto-row__price--flash-up')
+    void priceEl.offsetWidth
+    priceEl.classList.add('crypto-row__price--flash-down')
+  }
 }
 
 export function setConnectionStatus(connected: boolean): void {
