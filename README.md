@@ -11,7 +11,7 @@
 
 | Сервис | URL |
 | --- | --- |
-| Frontend | `https://online-banking-weld-beta.vercel.app/` |
+| [Frontend](https://online-banking-weld-beta.vercel.app/) |
 
 Ожидаемый ответ health:
 
@@ -20,7 +20,7 @@
 ```
 
 ## Video and Screens Demo
-Google drive - `https://drive.google.com/drive/folders/1aBfyxy0T2qSkuAuQmUCvdHxAL9PmM-9i?usp=drive_link`
+[Google drive](https://drive.google.com/drive/folders/1aBfyxy0T2qSkuAuQmUCvdHxAL9PmM-9i?usp=drive_link)
 
 ## Требования
 
