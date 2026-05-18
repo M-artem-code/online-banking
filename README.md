@@ -13,12 +13,6 @@
 | --- | --- |
 | [Frontend](https://online-banking-weld-beta.vercel.app/) |
 
-Ожидаемый ответ health:
-
-```json
-{ "status": "ok" }
-```
-
 ## Video and Screens Demo
 [Google drive](https://drive.google.com/drive/folders/1aBfyxy0T2qSkuAuQmUCvdHxAL9PmM-9i?usp=drive_link)
 
