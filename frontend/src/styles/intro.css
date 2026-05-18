@@ -233,74 +233,6 @@ html.page--ready:not(.is-intro-pending) .crypto-hub__ring {
   opacity: 1;
 }
 
-.crypto-hub--in-view .crypto-row {
-  animation: intro-crypto-row 0.72s var(--ease-smooth) backwards;
-}
-
-.crypto-hub--in-view .crypto-row:nth-child(1) {
-  animation-delay: 0.05s;
-}
-
-.crypto-hub--in-view .crypto-row:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.crypto-hub--in-view .crypto-row:nth-child(3) {
-  animation-delay: 0.15s;
-}
-
-.crypto-hub--in-view .crypto-row:nth-child(4) {
-  animation-delay: 0.2s;
-}
-
-.crypto-hub--in-view .crypto-row:nth-child(5) {
-  animation-delay: 0.25s;
-}
-
-.crypto-hub--in-view .crypto-hub__rings-wrap {
-  animation: intro-crypto-center 0.95s var(--ease-smooth) 0.12s backwards;
-}
-
-.crypto-hub--in-view .crypto-hub__center-ui {
-  animation: intro-crypto-ui 0.88s var(--ease-smooth) 0.2s backwards;
-}
-
-@keyframes intro-crypto-row {
-  from {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes intro-crypto-center {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes intro-crypto-ui {
-  from {
-    opacity: 0;
-    transform: translate3d(-50%, calc(-50% + 14px), 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(-50%, -50%, 0);
-  }
-}
-
 /* CTA hover — transition только когда intro-анимации полностью завершены */
 html.page--intro-done .hero__actions .btn-split {
   transition:
@@ -358,9 +290,7 @@ html.page--intro-done .hero__actions .btn-split {
     stroke-dashoffset: 0;
   }
 
-  .crypto-hub--in-view .crypto-row,
-  .crypto-hub--in-view .crypto-hub__rings-wrap,
-  .crypto-hub--in-view .crypto-hub__center-ui {
+  .crypto-hub--in-view .crypto-hub__rings-wrap {
     animation: none;
   }
 
