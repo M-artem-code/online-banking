@@ -9,6 +9,7 @@ export function readMenuTiming(): {
   itemMs: number;
   staggerMs: number;
   panelMs: number;
+  panelCloseMs: number;
   panelGrowMs: number;
   scrollMs: number;
 } {
@@ -16,8 +17,15 @@ export function readMenuTiming(): {
     itemMs: readCssTimeMs("--crypto-hub-add-menu-item-duration", MENU_ITEM_MS),
     staggerMs: readCssTimeMs("--crypto-hub-add-menu-stagger", MENU_STAGGER_MS),
     panelMs: readCssTimeMs("--crypto-hub-add-menu-duration", MENU_TRANSITION_MS),
+    panelCloseMs: readCssTimeMs(
+      "--crypto-hub-add-menu-close-duration",
+      640,
+    ),
     panelGrowMs: readCssTimeMs("--crypto-hub-add-menu-panel-duration", 3000),
-    scrollMs: readCssTimeMs("--crypto-hub-add-menu-scroll-duration", MENU_SCROLL_MS),
+    scrollMs: readCssTimeMs(
+      "--crypto-hub-add-menu-scroll-duration",
+      MENU_SCROLL_MS,
+    ),
   };
 }
 
@@ -111,16 +119,6 @@ function resetMenuItemReveal(list: Element): void {
     });
 }
 
-function hideMenuItemReveal(list: Element): void {
-  clearRevealTimers();
-
-  list
-    .querySelectorAll<HTMLElement>(".crypto-hub__add-item")
-    .forEach((item) => {
-      item.classList.remove("crypto-hub__add-item--revealed");
-    });
-}
-
 function scheduleMenuReveal(menu: HTMLElement, list: Element): void {
   const listEl = list as HTMLElement;
   const items = [
@@ -166,6 +164,7 @@ export function openAddMenu(menu: HTMLElement, list: Element): void {
   menu.classList.remove(
     "crypto-hub__add-menu--visible",
     "crypto-hub__add-menu--revealing",
+    "crypto-hub__add-menu--closing",
   );
 
   requestAnimationFrame(() => {
@@ -181,10 +180,27 @@ export function openAddMenu(menu: HTMLElement, list: Element): void {
   });
 }
 
-export function closeAddMenu(menu: HTMLElement, list: Element): void {
-  menu.classList.remove(
-    "crypto-hub__add-menu--visible",
-    "crypto-hub__add-menu--revealing",
+export function closeAddMenu(menu: HTMLElement, list: Element): number {
+  clearRevealTimers();
+
+  const { panelCloseMs } = readMenuTiming();
+
+  menu.classList.remove("crypto-hub__add-menu--revealing");
+  menu.classList.add("crypto-hub__add-menu--closing");
+
+  revealTimers.push(
+    window.setTimeout(() => {
+      menu.classList.remove(
+        "crypto-hub__add-menu--visible",
+        "crypto-hub__add-menu--closing",
+      );
+      list
+        .querySelectorAll<HTMLElement>(".crypto-hub__add-item")
+        .forEach((item) => {
+          item.classList.remove("crypto-hub__add-item--revealed");
+        });
+    }, panelCloseMs + 48),
   );
-  hideMenuItemReveal(list);
+
+  return panelCloseMs;
 }

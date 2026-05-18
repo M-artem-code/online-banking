@@ -1,8 +1,6 @@
 import {
   closeAddMenu,
-  getMenuRevealDuration,
   openAddMenu,
-  readMenuTiming,
 } from "./addMenuAnimation.ts";
 import {
   ACTIVE_ADD_COIN_ID,
@@ -165,7 +163,7 @@ export function initAddCryptoUi(): void {
 
   let closeTimer: ReturnType<typeof window.setTimeout> | null = null;
   const clearHoverOption = initSmoothOptionHover(list);
-  const itemCount = list.querySelectorAll(".crypto-hub__add-item").length;
+  let isOpen = false;
 
   const setOpen = (open: boolean): void => {
     if (closeTimer) {
@@ -173,31 +171,43 @@ export function initAddCryptoUi(): void {
       closeTimer = null;
     }
 
-    root.classList.toggle("crypto-hub__add--open", open);
-    btn.classList.toggle("crypto-hub__add-btn--open", open);
-    btn.setAttribute("aria-expanded", String(open));
-    menu.setAttribute("aria-hidden", String(!open));
-
     if (open) {
+      isOpen = true;
       clearHoverOption();
+      root.classList.remove("crypto-hub__add--closing");
+      root.classList.add("crypto-hub__add--open");
+      btn.classList.add("crypto-hub__add-btn--open");
+      btn.setAttribute("aria-expanded", "true");
+      menu.setAttribute("aria-hidden", "false");
       openAddMenu(menu, list);
       return;
     }
 
+    if (!isOpen && !root.classList.contains("crypto-hub__add--open")) return;
+
+    isOpen = false;
     clearHoverOption();
-    closeAddMenu(menu, list);
-    const { panelMs } = readMenuTiming();
+    root.classList.add("crypto-hub__add--closing");
+    btn.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-hidden", "true");
+
+    const closeMs = closeAddMenu(menu, list);
     closeTimer = window.setTimeout(
       () => {
+        root.classList.remove(
+          "crypto-hub__add--open",
+          "crypto-hub__add--closing",
+        );
+        btn.classList.remove("crypto-hub__add-btn--open");
         closeTimer = null;
       },
-      Math.max(panelMs, getMenuRevealDuration(itemCount)),
+      closeMs,
     );
   };
 
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    setOpen(!root.classList.contains("crypto-hub__add--open"));
+    setOpen(!isOpen);
   });
 
   list.addEventListener("click", (e) => {

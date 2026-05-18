@@ -228,7 +228,8 @@
   --crypto-hub-add-option-height: calc(3.25rem * var(--crypto-scale));
   --crypto-hub-add-visible-options: 4;
   --crypto-hub-add-menu-duration: 520ms;
-  --crypto-hub-add-menu-close-duration: 640ms;
+  --crypto-hub-add-menu-close-duration: 920ms;
+  --crypto-hub-add-menu-close-ease: cubic-bezier(0.33, 0, 0.18, 1);
   --crypto-hub-add-menu-panel-duration: 3000ms;
   --crypto-hub-add-menu-item-duration: 460ms;
   --crypto-hub-add-menu-stagger: 72ms;

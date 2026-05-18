@@ -482,6 +482,17 @@
   transform: translateY(-50%) rotate(135deg);
 }
 
+.crypto-hub__add--closing .crypto-hub__add-btn {
+  color: var(--color-text-on-surface);
+  background: var(--color-surface);
+  border-radius: 5px;
+}
+
+.crypto-hub__add--closing .crypto-hub__add-chevron {
+  border-color: var(--color-purple-deep);
+  transform: translateY(-50%) rotate(45deg);
+}
+
 .crypto-hub__add-menu {
   position: absolute;
   top: 100%;
@@ -499,7 +510,7 @@
   visibility: hidden;
   transition:
     max-height var(--crypto-hub-add-menu-close-duration, 640ms)
-      var(--ease-out-soft),
+      var(--crypto-hub-add-menu-close-ease, var(--ease-out-soft)),
     opacity var(--crypto-hub-add-menu-duration) var(--ease-out-soft),
     visibility 0s linear var(--crypto-hub-add-menu-duration);
   pointer-events: none;
@@ -517,6 +528,17 @@
     opacity var(--crypto-hub-add-menu-duration) var(--ease-out-soft),
     visibility 0s;
   pointer-events: auto;
+}
+
+.crypto-hub__add-menu--closing {
+  max-height: 0;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    max-height var(--crypto-hub-add-menu-close-duration, 640ms)
+      var(--crypto-hub-add-menu-close-ease, var(--ease-out-soft)),
+    visibility 0s linear var(--crypto-hub-add-menu-close-duration, 640ms);
+  pointer-events: none;
 }
 
 .crypto-hub__add-list {
