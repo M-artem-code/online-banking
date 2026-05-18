@@ -27,7 +27,6 @@
 - Node.js 20+
 - Python 3.12+
 - [Google OAuth 2.0](https://console.cloud.google.com/) (тип «Web application»)
-- `HP.mp4` из архива задания → `frontend/public/video/HP.mp4`
 
 ---
 
@@ -61,21 +60,7 @@ online-banking/
     .env.example
 ```
 
----
-
-## Локальный запуск
-
-### Шаг 1. Hero-видео
-
-Распакуйте `HP.mp4.zip` из материалов задания:
-
-```text
-frontend/public/video/HP.mp4
-```
-
-Без файла сайт откроется, но hero-видео и модалка будут пустыми (404).
-
-### Шаг 2. Google OAuth
+### Шаг 1. Google OAuth
 
 1. [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials.
 2. Создайте **OAuth 2.0 Client ID** (Web application).
@@ -88,7 +73,7 @@ frontend/public/video/HP.mp4
    http://localhost:8000/auth/google/callback
    ```
 
-### Шаг 3. Backend
+### Шаг 2. Backend
 
 ```bash
 cd backend
@@ -127,7 +112,7 @@ uvicorn app.main:app --reload --port 8000
 
 Проверка: http://localhost:8000/health → `{"status":"ok"}`
 
-### Шаг 4. Frontend
+### Шаг 3. Frontend
 
 Во **втором** терминале:
 
@@ -193,44 +178,3 @@ npm run dev
 | `npm run build` | frontend | TypeScript + production build |
 | `npm run preview` | frontend | Просмотр production-сборки |
 | `uvicorn app.main:app --reload --port 8000` | backend | API :8000 |
-
----
-
-## Деплой
-
-### Backend (Railway)
-
-1. New Project → Deploy from GitHub.
-2. **Root Directory:** `backend`
-3. Переменные из `backend/.env` с production URL:
-   ```env
-   FRONTEND_URL=https://your-frontend-url
-   BACKEND_URL=https://your-backend-url
-   ```
-4. В Google Console добавьте redirect URI:
-   ```text
-   https://your-backend-url/auth/google/callback
-   ```
-
-### Frontend (Vercel)
-
-1. Import репозитория в [Vercel](https://vercel.com).
-2. **Root Directory:** `frontend`
-3. Environment variable:
-   ```env
-   VITE_API_URL=https://your-backend-url
-   ```
-4. Deploy.
-
-> **Важно:** `HP.mp4` должен быть в git (см. `git add -f` выше), иначе на Vercel видео не появится.
-
----
-
-## Чеклист перед сдачей
-
-- [ ] `frontend/public/video/HP.mp4` в репозитории (или доступен на деплое)
-- [ ] `npm run build` в `frontend` проходит без ошибок
-- [ ] `GET /health` на backend → `{ "status": "ok" }`
-- [ ] Google OAuth работает локально и на production URL
-- [ ] В README указаны реальные ссылки на frontend и backend
-- [ ] Favicon отображается (`frontend/public/favicon.svg`)
