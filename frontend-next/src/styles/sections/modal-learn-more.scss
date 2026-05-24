@@ -1,0 +1,184 @@
+/* Learn More modal — Figma 1464×763, inner pad 60/60/149/145 */
+
+.modal--learn-more {
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: var(--learn-modal-pad-y) var(--learn-modal-pad-x);
+  background: transparent;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal--learn-more[hidden] {
+  display: none !important;
+}
+
+.modal--learn-more:not([hidden]) {
+  visibility: visible;
+}
+
+.modal--learn-more.modal--learn-open {
+  pointer-events: auto;
+}
+
+.modal--learn-more .modal__content--learn {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--learn-modal-width));
+  max-width: var(--learn-modal-width);
+  max-height: calc(100vh - 2 * var(--learn-modal-pad-y));
+  padding: 0;
+  overflow: visible;
+}
+
+/* Wrap — overflow visible so corner close is never clipped */
+.modal--learn-more .modal__learn-wrap {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  isolation: isolate;
+  opacity: 0;
+  transform: scale(0.96) translate3d(0, 16px, 0);
+  transition:
+    transform var(--transition-smooth),
+    opacity var(--transition-smooth);
+}
+
+.modal--learn-more.modal--learn-open .modal__learn-wrap {
+  opacity: 1;
+  transform: scale(1) translate3d(0, 0, 0);
+}
+
+.modal--learn-more .modal__learn-stage {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: min(var(--learn-modal-height), calc(100vh - 2 * var(--learn-modal-pad-y)));
+  max-height: min(var(--learn-modal-height), calc(100vh - 2 * var(--learn-modal-pad-y)));
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--color-surface);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.modal--learn-more .modal__learn-scroll {
+  box-sizing: border-box;
+  max-height: min(var(--learn-modal-height), calc(100vh - 2 * var(--learn-modal-pad-y)));
+  padding: var(--learn-modal-inner-top) var(--learn-modal-inner-right)
+    var(--learn-modal-inner-bottom) var(--learn-modal-inner-left);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal--learn-more .modal__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  font-size: var(--learn-modal-title-size);
+  font-weight: 400;
+  line-height: var(--learn-modal-title-line);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-on-surface);
+}
+
+.modal--learn-more .modal__title-line {
+  display: block;
+}
+
+.modal--learn-more .modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.modal--learn-more .modal__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--learn-modal-body-size);
+  font-weight: 400;
+  line-height: var(--learn-modal-body-line);
+  letter-spacing: 0.02em;
+  color: var(--color-text-on-surface);
+}
+
+@media (min-width: 768px) {
+  .modal--learn-more .modal__text-line {
+    display: block;
+  }
+}
+
+.modal--learn-more .modal__close--corner {
+  z-index: 20;
+}
+
+@media (max-width: 767px) {
+  .modal--learn-more {
+    padding: calc(
+        var(--learn-modal-pad-y-mobile) + var(--modal-close-size) + var(--modal-close-gap)
+      )
+      var(--learn-modal-pad-x-mobile) var(--learn-modal-pad-y-mobile);
+    align-items: center;
+  }
+
+  .modal--learn-more .modal__learn-wrap {
+    margin-top: 0;
+  }
+
+  .modal--learn-more .modal__learn-stage {
+    min-height: 0;
+    max-height: calc(
+      100dvh - var(--learn-modal-pad-y-mobile) - var(--modal-close-size) -
+        var(--modal-close-gap)
+    );
+  }
+
+  .modal--learn-more .modal__learn-scroll {
+    max-height: calc(
+      100dvh - var(--learn-modal-pad-y-mobile) - var(--modal-close-size) -
+        var(--modal-close-gap)
+    );
+    padding: var(--learn-modal-inner-top-mobile) var(--learn-modal-inner-x-mobile)
+      var(--learn-modal-inner-bottom-mobile) var(--learn-modal-inner-x-mobile);
+  }
+
+  .modal--learn-more .modal__title {
+    margin-bottom: 24px;
+    font-size: clamp(1rem, 4.8vw, 1.25rem);
+    line-height: 1.3;
+  }
+
+  .modal--learn-more .modal__body {
+    gap: 22px;
+  }
+
+  .modal--learn-more .modal__text {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  /* Natural wrap on mobile — fixed Figma lines flow as normal text */
+  .modal--learn-more .modal__text-line {
+    display: inline;
+  }
+
+  .modal--learn-more .modal__text-line::after {
+    content: " ";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal--learn-more,
+  .modal--learn-more .modal__learn-wrap {
+    transition-duration: 0.01ms !important;
+  }
+}
