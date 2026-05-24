@@ -1,12 +1,12 @@
 "use client";
 
-import { IntroCurtain } from "@/components/IntroCurtain";
-import { SiteHeader } from "@/components/SiteHeader";
-import { HeroSection } from "@/components/HeroSection";
-import { CryptoHub } from "@/components/CryptoHub";
-import { MobileMenu } from "@/components/MobileMenu";
-import { LearnMoreModal } from "@/components/LearnMoreModal";
-import { VideoModal } from "@/components/VideoModal";
+import { IntroCurtain } from "@/features/intro-sequence";
+import { SiteHeader } from "@/widgets/site-header";
+import { HeroSection } from "@/widgets/hero-section";
+import { CryptoHub } from "@/widgets/crypto-hub";
+import { MobileMenu } from "@/features/mobile-menu";
+import { LearnMoreModal } from "@/features/learn-more-modal";
+import { VideoModal } from "@/features/video-player-modal";
 
 export default function Home() {
   return (

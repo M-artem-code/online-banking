@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.scss";
-import { IntroProvider } from "@/components/IntroProvider";
+import { AppProviders } from "./providers/AppProviders";
 
 export const metadata: Metadata = {
   title: "KAIROS — Online Banking",
@@ -28,9 +28,7 @@ export default function RootLayout({
         />
       </head>
       <body className="is-intro-pending">
-        <IntroProvider>
-          {children}
-        </IntroProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

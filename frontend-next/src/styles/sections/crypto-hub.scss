@@ -535,9 +535,9 @@
   opacity: 1;
   visibility: visible;
   transition:
-    max-height var(--crypto-hub-add-menu-close-duration, 640ms)
+    max-height var(--crypto-hub-add-menu-close-duration, 920ms)
       var(--crypto-hub-add-menu-close-ease, var(--ease-out-soft)),
-    visibility 0s linear var(--crypto-hub-add-menu-close-duration, 640ms);
+    visibility 0s linear var(--crypto-hub-add-menu-close-duration, 920ms);
   pointer-events: none;
 }
 
@@ -586,7 +586,7 @@
   max-height: var(--crypto-hub-add-option-height);
   min-height: var(--crypto-hub-add-option-height);
   opacity: 0;
-  transform: translate3d(0, 8px, 0);
+  transform: translate3d(0, -8px, 0);
   transition:
     height var(--crypto-hub-add-option-hover-ms) var(--ease-out-soft),
     max-height var(--crypto-hub-add-option-hover-ms) var(--ease-out-soft),
@@ -603,10 +603,20 @@
   pointer-events: auto;
 }
 
-.crypto-hub__add:not(.crypto-hub__add--open) .crypto-hub__add-item {
+/* While closing, items animate back out (reverse stagger handled by inline delay).
+   Without an explicit "open"/"closing" state, items would just snap to their
+   pre-open position; this rule keeps the smooth fade-out. */
+.crypto-hub__add--closing .crypto-hub__add-item {
   opacity: 0;
-  transform: translate3d(0, 8px, 0);
+  transform: translate3d(0, -8px, 0);
   pointer-events: none;
+}
+
+.crypto-hub__add:not(.crypto-hub__add--open):not(.crypto-hub__add--closing) .crypto-hub__add-item {
+  opacity: 0;
+  transform: translate3d(0, -8px, 0);
+  pointer-events: none;
+  transition: none;
 }
 
 .crypto-hub__add-item--added {
@@ -742,6 +752,38 @@
 
 .crypto-hub__add-option-icon--usdt {
   background-image: url("/icons/crypto/usdt.svg");
+}
+
+.crypto-hub__add-option-icon--matic {
+  background-image: url("/icons/crypto/matic.svg");
+}
+
+.crypto-hub__add-option-icon--avax {
+  background-image: url("/icons/crypto/avax.svg");
+}
+
+.crypto-hub__add-option-icon--dot {
+  background-image: url("/icons/crypto/dot.svg");
+}
+
+.crypto-hub__add-option-icon--link {
+  background-image: url("/icons/crypto/link.svg");
+}
+
+.crypto-hub__add-option-icon--trx {
+  background-image: url("/icons/crypto/trx.svg");
+}
+
+.crypto-hub__add-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--crypto-hub-add-option-height);
+  padding: 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted-on-surface);
+  text-align: center;
 }
 
 /* ——— 4. Left / right rows ——— */
@@ -973,6 +1015,26 @@
   background-image: url("/icons/crypto/usdt.svg");
 }
 
+.crypto-row[data-coin="matic"] .crypto-row__icon {
+  background-image: url("/icons/crypto/matic.svg");
+}
+
+.crypto-row[data-coin="avax"] .crypto-row__icon {
+  background-image: url("/icons/crypto/avax.svg");
+}
+
+.crypto-row[data-coin="dot"] .crypto-row__icon {
+  background-image: url("/icons/crypto/dot.svg");
+}
+
+.crypto-row[data-coin="link"] .crypto-row__icon {
+  background-image: url("/icons/crypto/link.svg");
+}
+
+.crypto-row[data-coin="trx"] .crypto-row__icon {
+  background-image: url("/icons/crypto/trx.svg");
+}
+
 /* Дуга списков вокруг кольца — Figma: зазоры 45 / 75 / 45 px, ширины строк */
 @media (min-width: 1200px) {
   .crypto-list--left .crypto-row,
@@ -1029,30 +1091,70 @@
     max-width: var(--crypto-hub-row-w-usdc);
   }
 
-  .crypto-hub--solana-added .crypto-list--right .crypto-row {
-    height: calc(var(--crypto-hub-list-height) / 6);
-    min-height: calc(var(--crypto-hub-list-height) / 6);
+  /* Dynamic shrinking: when a column has > 5 rows, scale rows / icons / fonts
+     proportionally so they always fit the list height (no overflow). */
+  .crypto-hub__col {
+    --row-count: 5;
+    --effective-count: max(var(--row-count), 5);
+    --row-shrink: calc(5 / var(--effective-count));
   }
 
-  .crypto-hub--solana-added .crypto-list--right .crypto-row:nth-child(2) {
-    margin-inline-start: var(--crypto-hub-arc-indent-mid);
-    max-width: var(--crypto-hub-row-w-eth);
+  .crypto-hub__col--left {
+    --row-count: var(--crypto-row-count-left, 5);
   }
 
-  .crypto-hub--solana-added .crypto-list--right .crypto-row:nth-child(3),
-  .crypto-hub--solana-added .crypto-list--right .crypto-row:nth-child(4) {
+  .crypto-hub__col--right {
+    --row-count: var(--crypto-row-count-right, 5);
+  }
+
+  .crypto-hub__col .crypto-row:not(.crypto-row--leaving):not(.crypto-row--hidden) {
+    height: calc(var(--crypto-hub-list-height) / var(--effective-count));
+    min-height: calc(var(--crypto-hub-list-height) / var(--effective-count));
+    transition:
+      height var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      min-height var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      max-height var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      max-width var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      margin var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      padding var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      transform var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      opacity var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft);
+  }
+
+  .crypto-hub__col .crypto-row__icon {
+    width: calc(var(--crypto-hub-icon-size) * var(--row-shrink));
+    height: calc(var(--crypto-hub-icon-size) * var(--row-shrink));
+    transition:
+      width var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft),
+      height var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft);
+  }
+
+  .crypto-hub__col .crypto-row__price,
+  .crypto-hub__col .crypto-row__name {
+    font-size: calc(var(--crypto-hub-row-font-size) * var(--row-shrink));
+    transition: font-size var(--crypto-solana-move-duration, 1150ms) var(--ease-out-soft);
+  }
+
+  /* Beautiful semicircle: 6th row uses peak-arc indent; 7th and beyond use
+     mid-arc indent (no overflow because max-width remains capped). */
+  .crypto-hub__col--left .crypto-row:nth-child(6) {
+    margin-inline-end: var(--crypto-hub-arc-indent-peak);
+    max-width: var(--crypto-hub-row-w-sol);
+  }
+
+  .crypto-hub__col--left .crypto-row:nth-child(n+7) {
+    margin-inline-end: var(--crypto-hub-arc-indent-mid);
+    max-width: var(--crypto-hub-row-w-xrp);
+  }
+
+  .crypto-hub__col--right .crypto-row:nth-child(6) {
     margin-inline-start: var(--crypto-hub-arc-indent-peak);
     max-width: var(--crypto-hub-row-w-sol);
   }
 
-  .crypto-hub--solana-added .crypto-list--right .crypto-row:nth-child(5) {
+  .crypto-hub__col--right .crypto-row:nth-child(n+7) {
     margin-inline-start: var(--crypto-hub-arc-indent-mid);
     max-width: var(--crypto-hub-row-w-xrp);
-  }
-
-  .crypto-hub--solana-added .crypto-list--right .crypto-row:nth-child(6) {
-    margin-inline-start: 0;
-    max-width: var(--crypto-hub-row-w-sol);
   }
 }
 
