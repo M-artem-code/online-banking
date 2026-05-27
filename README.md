@@ -5,7 +5,7 @@
 | Frontend | Vite, TypeScript, CSS (без React/Vue) |
 | Backend | Python, FastAPI, Google OAuth2 |
 | Курсы | Binance public WebSocket |
-| Деплой | Vercel (frontend) + Railway (backend) |
+| Деплой | Vercel (frontend)
 
 ---
 
