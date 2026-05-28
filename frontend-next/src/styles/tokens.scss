@@ -1,0 +1,416 @@
+/**
+ * Design tokens — Figma 1920px artboard (pixel values at 120rem breakpoint)
+ */
+:root {
+  /* Backgrounds */
+  --color-bg-primary: #000b26;
+  --color-bg-crypto: #031c39;
+  --color-bg-menu: #051630;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f4f6;
+
+  /* Brand */
+  --color-purple-deep: #2e0066;
+  --color-purple-header: #29005c;
+  --color-purple-tab: #1a0040;
+  --color-gold: #c1b078;
+  --color-gold-hover: #d0c090;
+  --color-auth-border: #9747ff;
+  --color-accent-line: #4a90e2;
+  --color-progress: #f5c518;
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-on-surface: #2e0066;
+  --color-text-muted: rgba(255, 255, 255, 0.72);
+  --color-text-muted-on-surface: rgba(46, 0, 102, 0.55);
+
+  /* Semantic */
+  --color-positive: #22c55e;
+  --color-negative: #ef4444;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-on-surface: rgba(46, 0, 102, 0.2);
+  --color-overlay-hero: rgba(0, 11, 38, 0.55);
+
+  /* Typography — Bruno Ace */
+  --font-display: "Bruno Ace", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Bruno Ace", "Segoe UI", system-ui, sans-serif;
+
+  --text-display-xl: clamp(1.75rem, 5vw, 4rem);
+  --text-display-lg: clamp(1.25rem, 2.5vw, 2rem);
+  --text-body: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-nav: 0.8125rem;
+
+  --leading-tight: 1.15;
+  --leading-body: 1.6;
+  --tracking-display: 0.06em;
+  --tracking-nav: 0.14em;
+  --tracking-label: 0.12em;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 5rem;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+  --radius-full: 9999px;
+
+  /* Layout — responsive defaults */
+  --artboard-width: 1920px;
+  --container-max: min(1920px, 100%);
+  --container-padding: 20px;
+
+  --header-height: 64px;
+  --header-height-mobile: 64px;
+  --header-padding-x: var(--container-padding);
+  --header-content-max: 1760px;
+  --header-nav-gap: 20px;
+  --header-nav-sep-height: 14px;
+  --header-nav-line: 24px;
+  --header-nav-link-height: 24px;
+  --header-nav-font-size: 13px;
+  --header-nav-total-width: 699px;
+  --header-nav-link-home: 76px;
+  --header-nav-link-about: 117px;
+  --header-nav-link-projects: 95px;
+  --header-nav-link-contact: 168px;
+  --header-logo-width: 120px;
+  --header-logo-height: 28px;
+  --header-burger-size: 44px;
+  --color-nav-separator: rgba(255, 255, 255, 0.35);
+  --color-header-scrim: transparent;
+  --color-header-scrim-mobile: transparent;
+
+  /* Hero — Figma HP */
+  --hero-viewport-height: 1000px;
+  --hero-content-max: 1760px;
+  --hero-content-height: 546px;
+  --hero-content-offset-top: 254px;
+  --hero-content-offset-bottom: 200px;
+  --hero-copy-width: 1016px;
+  --hero-title-max: 933px;
+  --hero-title-subtitle-gap: 40px;
+  --hero-subtitle-max: 1016px;
+  --hero-subtitle-min-height: 66px;
+  --hero-subtitle-to-actions: 46.5px;
+  --hero-copy-to-auth-gap: 319px;
+  --hero-title-size: clamp(1.5rem, 4.2vw, 4rem);
+  --hero-subtitle-size: 16px;
+  --hero-cta-width: 207px;
+  --hero-cta-height: 55px;
+  --hero-cta-radius: 4px;
+  --hero-cta-icon-width: 71px;
+  --hero-cta-slice: 29px; /* угол диагонали (~62% от 71px) */
+  --hero-cta-split-shift: 0px; /* сдвиг линии среза вправо (+) / влево (-) */
+  --hero-cta-font-size: 16px;
+  --hero-actions-gap: 40px;
+
+  /* Video modal — Figma overlay 1465×764 */
+  --video-modal-width: 1465px;
+  --video-modal-height: 764px;
+  --video-modal-pad-x: clamp(16px, 11.9vw, 228px);
+  --video-modal-pad-y: clamp(16px, 8.2vh, 158px);
+  --video-play-size: 124px;
+
+  /* Modals — shared close + Learn More */
+  --modal-close-size: 48px;
+  --modal-close-gap: 12px;
+  --learn-modal-width: 1464px;
+  --learn-modal-height: 763px;
+  --learn-modal-pad-x: clamp(20px, 11.9vw, 228px);
+  --learn-modal-pad-y: clamp(54px, 8.2vh, 159px);
+  --learn-modal-inner-top: 60px;
+  --learn-modal-inner-left: 60px;
+  --learn-modal-inner-right: 149px;
+  --learn-modal-inner-bottom: 145px;
+  --learn-modal-pad-x-mobile: 20px;
+  --learn-modal-pad-y-mobile: 54px;
+  --learn-modal-inner-top-mobile: 40px;
+  --learn-modal-inner-x-mobile: 40px;
+  --learn-modal-inner-bottom-mobile: 75px;
+  --learn-modal-title-size: 28px;
+  --learn-modal-title-line: 1.35;
+  --learn-modal-body-size: 16px;
+  --learn-modal-body-line: 1.5;
+
+  /* Auth card — 425×455 */
+  --auth-card-width: 425px;
+  --auth-card-min-height: 455px;
+  --auth-card-radius: 8px;
+  --auth-card-tab-radius: 10px;
+  --auth-card-btn-radius: 8px;
+  --auth-card-header-h: 84px;
+  --auth-card-tab-h: 64px;
+  --auth-card-body-pad: 29px;
+  --auth-card-body-pad-x: 39px;
+  --auth-card-field-height: 48px;
+  --auth-card-google-height: 48px;
+  --auth-card-tab-font-size: 20px;
+  --auth-card-btn-font-size: 16px;
+  --auth-card-btn-hover-transition: 1100ms var(--ease-smooth);
+
+  /* Crypto hub — Figma 1920; масштаб от viewport на desktop (см. @1200px) */
+  --crypto-scale: 1;
+  --crypto-section-height: calc(884px * var(--crypto-scale));
+  --crypto-section-pad-top: calc(60px * var(--crypto-scale));
+  --crypto-section-pad-bottom: calc(60px * var(--crypto-scale));
+  --crypto-section-pad-left: calc(141px * var(--crypto-scale));
+  --crypto-section-pad-right: calc(200px * var(--crypto-scale));
+  --crypto-section-frame-width: calc(1760px * var(--crypto-scale));
+  --crypto-layout-width: calc(1613px * var(--crypto-scale));
+  --crypto-layout-height: calc(764px * var(--crypto-scale));
+  --crypto-layout-offset-left: max(
+    var(--crypto-section-pad-left),
+    calc(50% - var(--crypto-layout-width) / 2)
+  );
+  --crypto-layout-offset-right: max(
+    var(--crypto-section-pad-right),
+    calc(50% - var(--crypto-layout-width) / 2)
+  );
+  --crypto-hub-col-width: calc(424.5px * var(--crypto-scale));
+  --crypto-hub-list-height: calc(445px * var(--crypto-scale));
+  --crypto-hub-col-pad-block: calc(159.5px * var(--crypto-scale));
+  --crypto-hub-center-size: calc(764px * var(--crypto-scale));
+  /* Кольца Figma: 764 / 672 / 594 (внешний → внутренний) */
+  --crypto-hub-rings-size: calc(764px * var(--crypto-scale));
+  --crypto-hub-ring-gap: calc(39px * var(--crypto-scale));
+  --crypto-hub-ring-size-lg: 100%;
+  --crypto-hub-ring-size-md: 87.958115%;
+  --crypto-hub-ring-size-sm: 77.748691%;
+  --crypto-hub-col-overlap: calc(24.5px * var(--crypto-scale));
+  /* Дуга списков: зазор от правого/левого края строки до центра (Figma) */
+  --crypto-hub-arc-gap-mid: calc(75px * var(--crypto-scale));
+  --crypto-hub-arc-gap-peak: calc(95px * var(--crypto-scale));
+  --crypto-hub-arc-indent-mid: calc(
+    var(--crypto-hub-arc-gap-mid) - var(--crypto-hub-col-overlap)
+  );
+  --crypto-hub-arc-indent-peak: calc(
+    var(--crypto-hub-arc-gap-peak) - var(--crypto-hub-col-overlap)
+  );
+  --crypto-hub-row-w-eth: calc(392px * var(--crypto-scale));
+  --crypto-hub-row-w-sol: calc(254px * var(--crypto-scale));
+  --crypto-hub-row-w-xrp: calc(213px * var(--crypto-scale));
+  --crypto-hub-row-w-usdc: calc(292px * var(--crypto-scale));
+  --crypto-hub-row-height: calc(89px * var(--crypto-scale));
+  --crypto-hub-row-font-size: calc(16px * var(--crypto-scale));
+  --crypto-hub-row-transition-duration: 380ms;
+  --crypto-solana-move-duration: 1150ms;
+  --crypto-price-flash-duration: 0.9s;
+  --crypto-hub-icon-size: calc(36px * var(--crypto-scale));
+  --crypto-hub-ui-width: calc(350px * var(--crypto-scale));
+  --crypto-hub-ui-height: calc(137px * var(--crypto-scale));
+  --crypto-hub-ui-gap: calc(50px * var(--crypto-scale));
+  --crypto-hub-title-height: calc(39px * var(--crypto-scale));
+  --crypto-hub-title-size: calc(32px * var(--crypto-scale));
+  --crypto-hub-add-hover-ms: 950ms;
+  --crypto-hub-add-option-hover-ms: 820ms;
+  --crypto-hub-add-option-hover-ease: var(--ease-smooth);
+  --crypto-hub-add-option-hover-bg: #d4d4d4;
+  --crypto-hub-add-option-hover-color: #000000;
+  --crypto-hub-add-width: calc(346px * var(--crypto-scale));
+  --crypto-hub-add-border: 1px solid white;
+  --crypto-hub-add-height: calc(48px * var(--crypto-scale));
+  --crypto-hub-add-font-size: calc(16px * var(--crypto-scale));
+  --crypto-hub-add-btn-pad-inline-end: calc(54px * var(--crypto-scale));
+  --crypto-hub-add-btn-pad-inline-start: calc(42px * var(--crypto-scale));
+  --crypto-hub-add-option-height: calc(3.25rem * var(--crypto-scale));
+  --crypto-hub-add-visible-options: 4;
+  --crypto-hub-add-menu-duration: 520ms;
+  --crypto-hub-add-menu-close-duration: 920ms;
+  --crypto-hub-add-menu-close-ease: cubic-bezier(0.33, 0, 0.18, 1);
+  --crypto-hub-add-menu-panel-duration: 760ms;
+  --crypto-hub-add-menu-item-duration: 460ms;
+  --crypto-hub-add-menu-stagger: 72ms;
+  --crypto-hub-add-menu-scroll-duration: 1800ms;
+  --crypto-line-tl-top: calc(60px * var(--crypto-scale));
+  --crypto-line-tl-left: calc(73px * var(--crypto-scale));
+  --crypto-line-tl-width: calc(473.6px * var(--crypto-scale));
+  --crypto-line-tl-height: calc(220px * var(--crypto-scale));
+  --crypto-line-br-right: calc(120px * var(--crypto-scale));
+  --crypto-line-br-bottom: calc(58.5px * var(--crypto-scale));
+  --crypto-line-br-width: calc(613px * var(--crypto-scale));
+  --crypto-line-br-height: calc(286px * var(--crypto-scale));
+
+  --underline-offset: 3px;
+
+  /* Effects */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-card-lifted:
+    0 16px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-auth:
+    0 20px 56px rgba(0, 0, 0, 0.45), 0 0 40px rgba(46, 0, 102, 0.18);
+  --glow-accent: 0 0 12px rgba(74, 144, 226, 0.55);
+  --glow-accent-soft: 0 0 24px rgba(74, 144, 226, 0.22);
+  --glow-gold: 0 0 20px rgba(197, 179, 120, 0.35);
+  --glow-text: 0 0 28px rgba(255, 255, 255, 0.12);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 220ms var(--ease-smooth);
+  --transition-base: 400ms var(--ease-smooth);
+  --transition-smooth: 520ms var(--ease-smooth);
+
+  --bp-tablet: 768px;
+  --bp-desktop: 1200px;
+  --bp-hero-side: 1400px;
+  --bp-nav-desktop: 1400px;
+  --bp-figma: 1920px;
+
+  --z-overlays: 200;
+  --z-header-menu-open: 220;
+}
+
+/* Tablet 768–1199: кольца + масштаб UI под размер круга */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root {
+    --crypto-mobile-pad-x: clamp(1.25rem, 5vw, 2.5rem);
+    --crypto-mobile-hub-max: 36rem;
+    --crypto-mobile-hub-size: clamp(18rem, 52vw, var(--crypto-mobile-hub-max));
+    --crypto-mobile-ui-scale: calc(
+      var(--crypto-mobile-hub-size) / var(--crypto-mobile-hub-max)
+    );
+    --crypto-mobile-ui-inner: 0.72;
+    --crypto-mobile-ui-gap: calc(30px * var(--crypto-mobile-ui-scale));
+    --crypto-mobile-layout-gap-y: clamp(1.75rem, 5vw, 2.75rem);
+    --crypto-mobile-list-row-gap: 0.75rem;
+    --crypto-mobile-icon-size: 2rem;
+    --crypto-mobile-price-min: 4.25rem;
+    --crypto-mobile-section-pad-bottom: clamp(2.5rem, 10vw, 4.5rem);
+    --crypto-mobile-cta-width: calc(21.625rem * var(--crypto-mobile-ui-scale));
+    --crypto-mobile-cta-height: calc(48px * var(--crypto-mobile-ui-scale));
+    --crypto-mobile-heading-size: calc(
+      1.5625rem * var(--crypto-mobile-ui-scale)
+    );
+    --crypto-mobile-add-font-size: calc(14px * var(--crypto-mobile-ui-scale));
+    --crypto-mobile-add-pad-start: calc(20px * var(--crypto-mobile-ui-scale));
+    --crypto-mobile-add-pad-end: calc(42px * var(--crypto-mobile-ui-scale));
+    --crypto-mobile-add-option-font-size: calc(
+      0.875rem * var(--crypto-mobile-ui-scale)
+    );
+    --crypto-mobile-row-gap-x: clamp(0.5rem, 3vw, 1rem);
+    --crypto-mobile-row-gap-y: clamp(1rem, 3.5vw, 1.5rem);
+    --crypto-mobile-col-gap: clamp(1rem, 4vw, 1.75rem);
+  }
+}
+
+/* Телефоны: Figma M. HP — без уменьшения кнопки */
+@media (max-width: 767px) {
+  :root {
+    --crypto-mobile-pad-x: 20px;
+    --crypto-mobile-layout-max: 20rem;
+    --crypto-mobile-ui-scale: 1;
+    --crypto-mobile-ui-inner: 1;
+    --crypto-mobile-hub-size: auto;
+    --crypto-mobile-ui-gap: 30px;
+    --crypto-mobile-layout-gap-y: clamp(1.75rem, 5vw, 2.5rem);
+    --crypto-mobile-icon-size: 2rem;
+    --crypto-mobile-coin-font-size: 13px;
+    --crypto-mobile-price-min: 0;
+    --crypto-mobile-section-pad-bottom: clamp(2.5rem, 10vw, 4.5rem);
+    --crypto-mobile-cta-width: 100%;
+    --crypto-mobile-cta-height: 48px;
+    --crypto-mobile-heading-size: clamp(1.25rem, 6.5vw, 1.5625rem);
+    --crypto-mobile-add-font-size: 16px;
+    --crypto-mobile-add-pad-start: 20px;
+    --crypto-mobile-add-pad-end: 42px;
+    --crypto-mobile-add-option-font-size: 0.875rem;
+    --crypto-mobile-row-gap-x: 10px;
+    --crypto-mobile-row-gap-y: clamp(0.875rem, 3.5vw, 1rem);
+    --crypto-mobile-col-gap: 20px;
+  }
+}
+
+@media (max-width: 1399px) {
+  :root {
+    /* Бургер-меню — с 1400px скрыто desktop-nav */
+    --mobile-menu-pad-left: 20px;
+    --mobile-menu-list-top: clamp(190px, 59.44vw, 214px);
+    --mobile-menu-list-width: clamp(147px, 46.11vw, 166px);
+    --mobile-menu-link-size: 23px;
+    --mobile-menu-link-line: 24px;
+    --mobile-menu-link-gap: 30px;
+    --mobile-menu-duration: 720ms;
+    --mobile-menu-ease: var(--ease-out-soft);
+    --mobile-menu-backdrop-duration: 640ms;
+    --mobile-menu-link-duration: 560ms;
+    --mobile-menu-link-stagger: 65ms;
+    --mobile-menu-link-delay: 160ms;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --crypto-mobile-pad-x: 20px;
+    --crypto-mobile-layout-max: min(100%, 22rem);
+    --crypto-mobile-ui-gap: 30px;
+    --crypto-mobile-heading-size: 25px;
+    --crypto-mobile-cta-height: 48px;
+    --crypto-mobile-layout-gap-y: 40px;
+    --crypto-mobile-icon-size: 2rem;
+    --crypto-mobile-row-gap-y: 14px;
+    --crypto-mobile-col-gap: 20px;
+    --crypto-mobile-row-gap-x: 10px;
+    --crypto-mobile-line-tl-width: 11.75rem;
+    --crypto-mobile-line-br-width: 14.5rem;
+    --crypto-mobile-section-pad-top: 28px;
+    --crypto-mobile-section-pad-bottom: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 24px;
+    --header-height: 84px;
+    --hero-layout-pad-top: 220px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    /* 1200px → 0.625, 1920px → 1 — пропорционально макету Figma */
+    --crypto-scale: min(1, calc(100vw / var(--bp-figma)));
+    --container-padding: 32px;
+    --header-height: 84px;
+    --hero-layout-pad-top: 220px;
+    --hero-title-size: clamp(2rem, 4.2vw, 4rem);
+    --hero-subtitle-size: 16px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-padding: 80px;
+    --header-height: 104px;
+    --header-content-max: 1760px;
+    --header-nav-gap: 40px;
+    --header-nav-line: 24px;
+    --header-nav-link-height: 24px;
+    --header-nav-font-size: 13px;
+    --header-nav-sep-height: 14px;
+    --text-nav: 13px;
+    --header-logo-width: 136px;
+    --header-logo-height: 32px;
+    --hero-title-size: 64px;
+    --hero-subtitle-size: 16px;
+    --hero-layout-pad-top: 220px;
+    --crypto-layout-offset-left: max(
+      var(--crypto-section-pad-left),
+      calc(50% - var(--crypto-layout-width) / 2)
+    );
+    --crypto-layout-offset-right: max(
+      var(--crypto-section-pad-right),
+      calc(50% - var(--crypto-layout-width) / 2)
+    );
+  }
+}

@@ -1,0 +1,72 @@
+/* Shared modal — backdrop, corner close (Figma) */
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(0, 11, 38, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+}
+
+.modal.modal--backdrop-on .modal__backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Над контентом: правый край кнопки = правый край карточки, без захода на белое */
+.modal__close--corner {
+  position: absolute;
+  top: calc(-1 * var(--modal-close-size) - var(--modal-close-gap));
+  right: 0;
+  z-index: 20;
+  pointer-events: auto;
+  display: grid;
+  width: var(--modal-close-size);
+  height: var(--modal-close-size);
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 1.625rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-surface);
+  background: var(--color-purple-deep);
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background var(--transition-smooth),
+    transform var(--transition-fast);
+}
+
+.modal__close--corner:hover,
+.modal__close--corner:focus-visible {
+  background: var(--color-purple-header);
+}
+
+.modal__close--corner:active {
+  transform: scale(0.94);
+}
+
+body.has-modal-open {
+  overflow: hidden;
+}
+
+/* Запас под крестик на углу карточки (не fixed к краю экрана) */
+@media (max-width: 767px) {
+  .modal--learn-more,
+  .modal--video {
+    overflow: visible;
+  }
+
+  .modal--learn-more .modal__content--learn,
+  .modal--video .modal__content--video {
+    overflow: visible;
+  }
+}
